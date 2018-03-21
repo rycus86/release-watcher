@@ -3,6 +3,7 @@ package providers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/rycus86/release-watcher/config"
 	"github.com/rycus86/release-watcher/model"
 	"net/http"
 	"time"
@@ -21,7 +22,7 @@ type dockerHubTagsResponse struct {
 
 func (provider *DockerHubProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: 30 * time.Second,
+		Timeout: config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/dockerhub"),
 	}
 
 	RegisterProvider(provider)
@@ -31,10 +32,15 @@ func (provider *DockerHubProvider) GetName() string {
 	return "dockerhub"
 }
 
-func (provider *DockerHubProvider) FetchReleases(owner string, repo string) ([]model.Release, error) {
+func (provider *DockerHubProvider) FetchReleases(project config.Project) ([]model.Release, error) {
 	var releases []model.Release
 
-	apiUrl := provider.getUrl(fmt.Sprintf("/v2/repositories/%s/%s/tags/", owner, repo))
+	owner := project.Owner
+	if owner == "" {
+		owner = "_"
+	}
+
+	apiUrl := fmt.Sprintf("https://hub.docker.com/v2/repositories/%s/%s/tags/", project.Owner, project.Repo)
 	response, err := provider.client.Get(apiUrl)
 	if err != nil {
 		return nil, err
@@ -47,7 +53,7 @@ func (provider *DockerHubProvider) FetchReleases(owner string, repo string) ([]m
 	}
 
 	for _, release := range apiResponse.Results {
-		url := provider.getUrl(fmt.Sprintf("/r/%s/%s/tags/", owner, repo))
+		url := fmt.Sprintf("https://hub.docker.com/r/%s/%s/tags/", project.Owner, project.Repo)
 		published, err := time.Parse(time.RFC3339Nano, release.LastUpdated)
 		if err != nil {
 			published = time.Now()
@@ -61,8 +67,4 @@ func (provider *DockerHubProvider) FetchReleases(owner string, repo string) ([]m
 	}
 
 	return releases, nil
-}
-
-func (provider *DockerHubProvider) getUrl(path string) string {
-	return fmt.Sprintf("https://hub.docker.com%s", path)
 }

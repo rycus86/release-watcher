@@ -1,0 +1,19 @@
+releases:
+  github:
+    - owner: docker
+      repo: docker-py
+
+  dockerhub:
+    - repo: nginx
+    - owner: rycus86
+      repo: grafana
+
+  pypi:
+    - repo: flask
+
+tags:
+  github:
+    - owner: rycus86
+      repo: prometheus-flask-exporter
+    - owner: rycus86
+      repo: ghost-client

@@ -1,8 +1,9 @@
 package providers
 
 import (
+	"github.com/rycus86/release-watcher/config"
+	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
-	httpmock "gopkg.in/jarcoal/httpmock.v1"
 	"testing"
 )
 
@@ -23,7 +24,7 @@ func TestFetchGitHubReleases(t *testing.T) {
 	provider := GitHubProvider{}
 	provider.Initialize()
 
-	releases, err := provider.FetchReleases("docker", "docker-py")
+	releases, err := provider.FetchReleases(config.Project{Owner: "docker", Repo: "docker-py"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}
@@ -64,7 +65,7 @@ func TestFetchGitHubTags(t *testing.T) {
 	provider := GitHubProvider{}
 	provider.Initialize()
 
-	releases, err := provider.FetchTags("docker", "docker-py")
+	releases, err := provider.FetchTags(config.Project{Owner: "docker", Repo: "docker-py"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}

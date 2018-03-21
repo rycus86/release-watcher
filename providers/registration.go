@@ -18,4 +18,5 @@ func RegisterProvider(provider Provider) {
 func InitializeProviders() {
 	(&GitHubProvider{}).Initialize()
 	(&DockerHubProvider{}).Initialize()
+	(&PyPIProvider{}).Initialize()
 }

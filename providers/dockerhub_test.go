@@ -1,9 +1,10 @@
 package providers
 
 import (
+	"github.com/rycus86/release-watcher/config"
+	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"net/http"
-	httpmock "gopkg.in/jarcoal/httpmock.v1"
 	"testing"
 )
 
@@ -25,7 +26,7 @@ func TestFetchDockerHubReleases(t *testing.T) {
 		client: &http.Client{},
 	}
 
-	releases, err := provider.FetchReleases("rycus86", "grafana")
+	releases, err := provider.FetchReleases(config.Project{Owner: "rycus86", Repo: "grafana"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}
@@ -46,5 +47,24 @@ func TestFetchDockerHubReleases(t *testing.T) {
 
 	if sample.URL != "https://hub.docker.com/r/rycus86/grafana/tags/" {
 		t.Errorf("Unexpected URL: %s", sample.URL)
+	}
+}
+
+func TestFetchForLibraryImage(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	provider := DockerHubProvider{
+		client: &http.Client{},
+	}
+
+	httpmock.RegisterResponder(
+		"GET", "https://hub.docker.com/v2/repositories/_/nginx/tags/",
+		httpmock.NewStringResponder(200, "{}"),
+	)
+
+	_, err := provider.FetchReleases(config.Project{Owner: "_", Repo: "nginx"})
+	if err != nil {
+		t.Errorf("Failed to fetch releases: %s", err)
 	}
 }

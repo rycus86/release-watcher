@@ -1,0 +1,258 @@
+{
+  "info": {
+    "maintainer": "",
+    "docs_url": null,
+    "requires_python": "",
+    "maintainer_email": "",
+    "cheesecake_code_kwalitee_id": null,
+    "keywords": "prometheus,flask,monitoring,exporter",
+    "package_url": "http://pypi.python.org/pypi/prometheus-flask-exporter",
+    "author": "Viktor Adam",
+    "author_email": "rycus86@gmail.com",
+    "download_url": "https://github.com/rycus86/prometheus_flask_exporter/archive/0.2.1.tar.gz",
+    "platform": "",
+    "version": "0.2.1",
+    "cheesecake_documentation_id": null,
+    "_pypi_hidden": false,
+    "description": "Prometheus Flask exporter\n=========================\n\n|Travis| |PyPI| |PyPI| |Coverage Status| |Code Climate|\n\nThis library provides HTTP request metrics to export into\n`Prometheus <https://prometheus.io/>`__. It can also track method\ninvocations using convenient functions.\n\nUsage\n-----\n\n.. code:: python\n\n    from flask import Flask, request\n    from prometheus_flask_exporter import PrometheusMetrics\n\n    app = Flask(__name__)\n    metrics = PrometheusMetrics(app)\n\n    # static information as metric\n    metrics.info('app_info', 'Application info', version='1.0.3')\n\n    @app.route('/')\n    def main():\n        pass  # requests tracked by default\n\n    @app.route('/skip')\n    @metrics.do_not_track()\n    def skip():\n        pass  # default metrics are not collected\n\n    @app.route('/<item_type>')\n    @metrics.do_not_track()\n    @metrics.counter('invocation_by_type', 'Number of invocations by type',\n             labels={'item_type': lambda: request.view_args['type']})\n    def by_type(item_type):\n        pass  # only the counter is collected, not the default metrics\n\n    @app.route('/long-running')\n    @metrics.gauge('in_progress', 'Long running requests in progress')\n    def long_running():\n        pass\n\n    @app.route('/status/<int:status>')\n    @metrics.do_not_track()\n    @metrics.summary('requests_by_status', 'Request latencies by status',\n                     labels={'status': lambda r: r.status_code})\n    @metrics.histogram('requests_by_status_and_path', 'Request latencies by status and path',\n                       labels={'status': lambda r: r.status_code, 'path': lambda: request.path})\n    def echo_status(status):\n        return 'Status: %s' % status, status\n\nDefault metrics\n---------------\n\nThe following metrics are exported by default (unless the\n``export_defaults`` is set to ``False``).\n\n-  ``flask_http_request_duration_seconds`` (Histogram)\n    Labels: ``method``, ``path`` and ``status``.\n    Flask HTTP request duration in seconds for all Flask requests.\n-  ``flask_http_request_total`` (Counter)\n    Labels: ``method`` and ``status``. Total number of HTTP requests for\n   all Flask requests.\n-  ``flask_exporter_info`` (Gauge)\n    Information about the Prometheus Flask exporter itself (e.g.\n   ``version``).\n\nConfiguration\n-------------\n\nBy default, the metrics are exposed on the same Flask application on the\n``/metrics`` endpoint and using the core Prometheus registry. If this\ndoesn't suit your needs, set the ``path`` argument to ``None`` and/or\nthe ``export_defaults`` argument to ``False`` plus change the\n``registry`` argument if needed. The ``group_by_endpoint`` constructor\nflag makes the default request duration metric tracked by endpoint\n(function) instead of URI path.\n\nThe ``register_endpoint`` allows exposing the metrics endpoint on a\nspecific path. It also allows passing in a Flask application to register\nit on but defaults to the main one if not defined.\n\nSimilarly, the ``start_http_server`` allows exposing the endpoint on an\nindependent Flask application on a selected HTTP port. It also supports\noverriding the endpoint's path and the HTTP listen address.\n\nLabels\n------\n\nWhen defining labels for metrics on functions, the following values are\nsupported in the dictionary:\n\n-  A simple static value\n-  A no-argument callable\n-  A single argument callable that will receive the Flask response as\n   the argument\n\nLabel values are evaluated within the request context.\n\nApplication information\n-----------------------\n\nThe ``PrometheusMetrics.info(..)`` method provides a way to expose\ninformation as a ``Gauge`` metric, the application version for example.\n\nThe metric is returned from the method to allow changing its value from\nthe default ``1``:\n\n.. code:: python\n\n    metrics = PrometheusMetrics(app)\n    info = metrics.info('dynamic_info', 'Something dynamic')\n    ...\n    info.set(42.1)\n\nLicense\n-------\n\nMIT\n\n.. |Travis| image:: https://img.shields.io/travis/rycus86/prometheus_flask_exporter.svg\n   :target: https://travis-ci.org/rycus86/prometheus_flask_exporter\n.. |PyPI| image:: https://img.shields.io/pypi/v/prometheus-flask-exporter.svg\n   :target: https://pypi.python.org/pypi/prometheus-flask-exporter\n.. |PyPI| image:: https://img.shields.io/pypi/pyversions/prometheus-flask-exporter.svg\n   :target: https://pypi.python.org/pypi/prometheus-flask-exporter\n.. |Coverage Status| image:: https://coveralls.io/repos/github/rycus86/prometheus_flask_exporter/badge.svg?branch=master\n   :target: https://coveralls.io/github/rycus86/prometheus_flask_exporter?branch=master\n.. |Code Climate| image:: https://codeclimate.com/github/rycus86/prometheus_flask_exporter/badges/gpa.svg\n   :target: https://codeclimate.com/github/rycus86/prometheus_flask_exporter",
+    "release_url": "http://pypi.python.org/pypi/prometheus-flask-exporter/0.2.1",
+    "downloads": {
+      "last_month": 0,
+      "last_week": 0,
+      "last_day": 0
+    },
+    "_pypi_ordering": 12,
+    "classifiers": [
+      "Development Status :: 4 - Beta",
+      "Intended Audience :: Developers",
+      "Intended Audience :: System Administrators",
+      "License :: OSI Approved :: MIT License",
+      "Programming Language :: Python :: 2",
+      "Programming Language :: Python :: 2.7",
+      "Programming Language :: Python :: 3",
+      "Programming Language :: Python :: 3.3",
+      "Programming Language :: Python :: 3.4",
+      "Programming Language :: Python :: 3.5",
+      "Programming Language :: Python :: 3.6",
+      "Topic :: System :: Monitoring"
+    ],
+    "bugtrack_url": null,
+    "name": "prometheus-flask-exporter",
+    "license": "MIT",
+    "summary": "Prometheus metrics exporter for Flask",
+    "home_page": "https://github.com/rycus86/prometheus_flask_exporter",
+    "cheesecake_installability_id": null
+  },
+  "releases": {
+    "0.0.5": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-11-25T22:22:10",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/2f/d8/391411ca50d312f805dbd65a9e9f3994c6fbd5d285a3b575773dffad9629/prometheus_flask_exporter-0.0.5.tar.gz",
+        "md5_digest": "5a405469e3f268e6a2070626dc791970",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.5.tar.gz",
+        "packagetype": "sdist",
+        "path": "2f/d8/391411ca50d312f805dbd65a9e9f3994c6fbd5d285a3b575773dffad9629/prometheus_flask_exporter-0.0.5.tar.gz",
+        "size": 5504
+      }
+    ],
+    "0.0.4": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-11-24T23:07:53",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/42/59/56eaa855d349fcc20bad9e43fd55a0b7975fc3e540d3aeff4ad2d9958b5b/prometheus_flask_exporter-0.0.4.tar.gz",
+        "md5_digest": "e468f3b846af9e6701b202663f1d5b15",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.4.tar.gz",
+        "packagetype": "sdist",
+        "path": "42/59/56eaa855d349fcc20bad9e43fd55a0b7975fc3e540d3aeff4ad2d9958b5b/prometheus_flask_exporter-0.0.4.tar.gz",
+        "size": 4637
+      }
+    ],
+    "0.0.7": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-11-29T23:52:45",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/c6/c0/d159129298f541f8b43379e99ce16fcdad77c84423e792097a150739c9ac/prometheus_flask_exporter-0.0.7.tar.gz",
+        "md5_digest": "d95cc7184735ac6d94de2253a96813c1",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.7.tar.gz",
+        "packagetype": "sdist",
+        "path": "c6/c0/d159129298f541f8b43379e99ce16fcdad77c84423e792097a150739c9ac/prometheus_flask_exporter-0.0.7.tar.gz",
+        "size": 5774
+      }
+    ],
+    "0.0.6": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-11-29T23:36:44",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/50/45/4931de0ce6570d0c51cc3e07d6f6665c74ea7ba813e04817493701cbe44a/prometheus_flask_exporter-0.0.6.tar.gz",
+        "md5_digest": "0cb59e927f5a4341f57f8d32e6d71181",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.6.tar.gz",
+        "packagetype": "sdist",
+        "path": "50/45/4931de0ce6570d0c51cc3e07d6f6665c74ea7ba813e04817493701cbe44a/prometheus_flask_exporter-0.0.6.tar.gz",
+        "size": 5558
+      }
+    ],
+    "0.0.1": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-11-24T00:25:05",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/c3/8c/8a1a4899059f52a8767c074201f599fc086c938e8e8103f5bac8ab2f72a8/prometheus_flask_exporter-0.0.1.tar.gz",
+        "md5_digest": "da72b147d5c0ce43294c5b807b430567",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.1.tar.gz",
+        "packagetype": "sdist",
+        "path": "c3/8c/8a1a4899059f52a8767c074201f599fc086c938e8e8103f5bac8ab2f72a8/prometheus_flask_exporter-0.0.1.tar.gz",
+        "size": 2860
+      }
+    ],
+    "0.0.2": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-11-24T22:36:05",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/b6/ba/3c12204603ba365738a8b04750cc1308e513d77a56c6eb49cbaa23c170fa/prometheus_flask_exporter-0.0.2.tar.gz",
+        "md5_digest": "f8aa9a67b0e3fa8c554b525499c304f2",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.2.tar.gz",
+        "packagetype": "sdist",
+        "path": "b6/ba/3c12204603ba365738a8b04750cc1308e513d77a56c6eb49cbaa23c170fa/prometheus_flask_exporter-0.0.2.tar.gz",
+        "size": 3569
+      }
+    ],
+    "0.0.9": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-12-04T08:41:24",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/a6/95/f9251e91267d6205a31565bdf050726b5d8647292368bff92ab305f2ed47/prometheus_flask_exporter-0.0.9.tar.gz",
+        "md5_digest": "949dbebe6b552ac503b4689fd8e1eead",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.9.tar.gz",
+        "packagetype": "sdist",
+        "path": "a6/95/f9251e91267d6205a31565bdf050726b5d8647292368bff92ab305f2ed47/prometheus_flask_exporter-0.0.9.tar.gz",
+        "size": 6156
+      }
+    ],
+    "0.0.8": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-11-30T00:05:09",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/b8/ea/399527d10cd53b730f399b2c916ea597766d87f1526a25d1270a49ad5730/prometheus_flask_exporter-0.0.8.tar.gz",
+        "md5_digest": "4138f3d40f82d181efcc9429bf47ca05",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.0.8.tar.gz",
+        "packagetype": "sdist",
+        "path": "b8/ea/399527d10cd53b730f399b2c916ea597766d87f1526a25d1270a49ad5730/prometheus_flask_exporter-0.0.8.tar.gz",
+        "size": 5776
+      }
+    ],
+    "0.2.1": [
+      {
+        "has_sig": false,
+        "upload_time": "2018-03-20T21:47:59",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/ac/51/25c2f6d89e8f1f6a7b81681275ffc2ec009a0bbb25d645eafee45c29a4d5/prometheus_flask_exporter-0.2.1.tar.gz",
+        "md5_digest": "a8fd6bccdb64448e0c51c571b556b36e",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.2.1.tar.gz",
+        "packagetype": "sdist",
+        "path": "ac/51/25c2f6d89e8f1f6a7b81681275ffc2ec009a0bbb25d645eafee45c29a4d5/prometheus_flask_exporter-0.2.1.tar.gz",
+        "size": 6823
+      }
+    ],
+    "0.2.0": [
+      {
+        "has_sig": false,
+        "upload_time": "2018-02-27T21:28:41",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/72/bf/ea21d7d2fa2e87bcec7f9b611f8c5adac3cb6372ba877d974d1d4c792724/prometheus_flask_exporter-0.2.0.tar.gz",
+        "md5_digest": "c0aef39f16a275d7a466747c8d49a2dc",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.2.0.tar.gz",
+        "packagetype": "sdist",
+        "path": "72/bf/ea21d7d2fa2e87bcec7f9b611f8c5adac3cb6372ba877d974d1d4c792724/prometheus_flask_exporter-0.2.0.tar.gz",
+        "size": 6799
+      }
+    ],
+    "0.1.0": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-12-04T17:52:02",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/5d/39/4b837066277dd44591bed52d206b5582f5919f62233b5a9a48742cf72c2b/prometheus_flask_exporter-0.1.0.tar.gz",
+        "md5_digest": "a0d897f8937851c85697759ab1c5fb24",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.1.0.tar.gz",
+        "packagetype": "sdist",
+        "path": "5d/39/4b837066277dd44591bed52d206b5582f5919f62233b5a9a48742cf72c2b/prometheus_flask_exporter-0.1.0.tar.gz",
+        "size": 6490
+      }
+    ],
+    "0.1.1": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-12-04T21:16:50",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/67/5b/6f937cb69856f665d0ecde87102fe90b07a49ce51aa7243709dbef59ac90/prometheus_flask_exporter-0.1.1.tar.gz",
+        "md5_digest": "12782d15f4f3980948e6827ccfc8a4b8",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.1.1.tar.gz",
+        "packagetype": "sdist",
+        "path": "67/5b/6f937cb69856f665d0ecde87102fe90b07a49ce51aa7243709dbef59ac90/prometheus_flask_exporter-0.1.1.tar.gz",
+        "size": 6495
+      }
+    ],
+    "0.1.2": [
+      {
+        "has_sig": false,
+        "upload_time": "2017-12-29T21:00:09",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/f6/51/bd2724ac3417e896a8ac2718be7f842e61e2e7f42cf700f2a09f5a40c17a/prometheus_flask_exporter-0.1.2.tar.gz",
+        "md5_digest": "7e81e764ff33eaa6458cacfcf4545e01",
+        "downloads": 0,
+        "filename": "prometheus_flask_exporter-0.1.2.tar.gz",
+        "packagetype": "sdist",
+        "path": "f6/51/bd2724ac3417e896a8ac2718be7f842e61e2e7f42cf700f2a09f5a40c17a/prometheus_flask_exporter-0.1.2.tar.gz",
+        "size": 6637
+      }
+    ]
+  },
+  "urls": [
+    {
+      "has_sig": false,
+      "upload_time": "2018-03-20T21:47:59",
+      "comment_text": "",
+      "python_version": "source",
+      "url": "https://pypi.python.org/packages/ac/51/25c2f6d89e8f1f6a7b81681275ffc2ec009a0bbb25d645eafee45c29a4d5/prometheus_flask_exporter-0.2.1.tar.gz",
+      "md5_digest": "a8fd6bccdb64448e0c51c571b556b36e",
+      "downloads": 0,
+      "filename": "prometheus_flask_exporter-0.2.1.tar.gz",
+      "packagetype": "sdist",
+      "path": "ac/51/25c2f6d89e8f1f6a7b81681275ffc2ec009a0bbb25d645eafee45c29a4d5/prometheus_flask_exporter-0.2.1.tar.gz",
+      "size": 6823
+    }
+  ]
+}
