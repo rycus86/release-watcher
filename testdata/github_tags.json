@@ -1,0 +1,272 @@
+[
+  {
+    "name": "3.1.3",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/3.1.3",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/3.1.3",
+    "commit": {
+      "sha": "af674155b78eaf1d014853d9dfcf728b22f1302b",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/af674155b78eaf1d014853d9dfcf728b22f1302b"
+    }
+  },
+  {
+    "name": "3.1.2",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/3.1.2",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/3.1.2",
+    "commit": {
+      "sha": "88b0d697aa5386c2ef90a5b480cd400ce5a32646",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/88b0d697aa5386c2ef90a5b480cd400ce5a32646"
+    }
+  },
+  {
+    "name": "3.1.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/3.1.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/3.1.1",
+    "commit": {
+      "sha": "4c263ee2c92b64c1714c75f56d1dbde74de97bee",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/4c263ee2c92b64c1714c75f56d1dbde74de97bee"
+    }
+  },
+  {
+    "name": "3.1.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/3.1.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/3.1.0",
+    "commit": {
+      "sha": "79f27c68ab7835fb26151cd559ecc64d8aeb15ac",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/79f27c68ab7835fb26151cd559ecc64d8aeb15ac"
+    }
+  },
+  {
+    "name": "3.0.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/3.0.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/3.0.1",
+    "commit": {
+      "sha": "c9ee0222fa931365b4af19d1cbbc61be671664f1",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/c9ee0222fa931365b4af19d1cbbc61be671664f1"
+    }
+  },
+  {
+    "name": "3.0.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/3.0.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/3.0.0",
+    "commit": {
+      "sha": "91bc75cc92f578ae9d659ad7e8ed11a0877b70aa",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/91bc75cc92f578ae9d659ad7e8ed11a0877b70aa"
+    }
+  },
+  {
+    "name": "2.7.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.7.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.7.0",
+    "commit": {
+      "sha": "5bed7b8f0dde3949779b60ec0f6305a02dd35a87",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/5bed7b8f0dde3949779b60ec0f6305a02dd35a87"
+    }
+  },
+  {
+    "name": "2.6.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.6.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.6.1",
+    "commit": {
+      "sha": "d4007956349f67849d7694174421e744605faa22",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/d4007956349f67849d7694174421e744605faa22"
+    }
+  },
+  {
+    "name": "2.6.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.6.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.6.0",
+    "commit": {
+      "sha": "65ba043d158792ea7a596f306293a6503cc12e9a",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/65ba043d158792ea7a596f306293a6503cc12e9a"
+    }
+  },
+  {
+    "name": "2.5.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.5.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.5.1",
+    "commit": {
+      "sha": "e9fe07768145d848fd67c8d84b7766bd39ec5e38",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/e9fe07768145d848fd67c8d84b7766bd39ec5e38"
+    }
+  },
+  {
+    "name": "2.5.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.5.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.5.0",
+    "commit": {
+      "sha": "9b6ff333ac0e1fbebb8fe4881d29b36c07f15a51",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/9b6ff333ac0e1fbebb8fe4881d29b36c07f15a51"
+    }
+  },
+  {
+    "name": "2.4.2",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.4.2",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.4.2",
+    "commit": {
+      "sha": "eb0d80646aab85b2ed555a54c2d3dffe2c7be150",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/eb0d80646aab85b2ed555a54c2d3dffe2c7be150"
+    }
+  },
+  {
+    "name": "2.4.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.4.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.4.1",
+    "commit": {
+      "sha": "65e01f24e4d0278c976ff7f88b5bbf13bcd6e1ec",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/65e01f24e4d0278c976ff7f88b5bbf13bcd6e1ec"
+    }
+  },
+  {
+    "name": "2.4.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.4.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.4.0",
+    "commit": {
+      "sha": "706e2cad654cf43be1dd4e4d420baa6964b0f1d3",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/706e2cad654cf43be1dd4e4d420baa6964b0f1d3"
+    }
+  },
+  {
+    "name": "2.3.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.3.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.3.0",
+    "commit": {
+      "sha": "0832898507d3ce65f449003e3f244c4750e41393",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/0832898507d3ce65f449003e3f244c4750e41393"
+    }
+  },
+  {
+    "name": "2.2.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.2.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.2.1",
+    "commit": {
+      "sha": "599aa1a89a1e9d6905f6133595062a8e3b58025d",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/599aa1a89a1e9d6905f6133595062a8e3b58025d"
+    }
+  },
+  {
+    "name": "2.2.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.2.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.2.0",
+    "commit": {
+      "sha": "b474ea2fd6357a3abd3942e589001f41cb6b3f6b",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/b474ea2fd6357a3abd3942e589001f41cb6b3f6b"
+    }
+  },
+  {
+    "name": "2.1.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.1.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.1.0",
+    "commit": {
+      "sha": "5742774c7d6357edda68ca6b5861693383bb01c1",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/5742774c7d6357edda68ca6b5861693383bb01c1"
+    }
+  },
+  {
+    "name": "2.0.2",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.0.2",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.0.2",
+    "commit": {
+      "sha": "269a15e473f47d27cd7b7727d9e4595a6d8f33d3",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/269a15e473f47d27cd7b7727d9e4595a6d8f33d3"
+    }
+  },
+  {
+    "name": "2.0.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.0.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.0.1",
+    "commit": {
+      "sha": "206c18409d2efd17d24e431ef669c796b96ffd29",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/206c18409d2efd17d24e431ef669c796b96ffd29"
+    }
+  },
+  {
+    "name": "2.0.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/2.0.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/2.0.0",
+    "commit": {
+      "sha": "3bc06bb80417609595cdf3060c0fdb75a8399b98",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/3bc06bb80417609595cdf3060c0fdb75a8399b98"
+    }
+  },
+  {
+    "name": "1.10.6",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.10.6",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.10.6",
+    "commit": {
+      "sha": "997e583ea9a7b33113edd91d5bee73d25d720448",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/997e583ea9a7b33113edd91d5bee73d25d720448"
+    }
+  },
+  {
+    "name": "1.10.5",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.10.5",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.10.5",
+    "commit": {
+      "sha": "6f5e19f2276508f4352fae471d90b098457de814",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/6f5e19f2276508f4352fae471d90b098457de814"
+    }
+  },
+  {
+    "name": "1.10.4",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.10.4",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.10.4",
+    "commit": {
+      "sha": "20be7d50f089e576ea19c069a57e8588b2af8f6b",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/20be7d50f089e576ea19c069a57e8588b2af8f6b"
+    }
+  },
+  {
+    "name": "1.10.3",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.10.3",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.10.3",
+    "commit": {
+      "sha": "fc481c4cd15321251bb1eedbb5ea67187c606ace",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/fc481c4cd15321251bb1eedbb5ea67187c606ace"
+    }
+  },
+  {
+    "name": "1.10.2",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.10.2",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.10.2",
+    "commit": {
+      "sha": "e833881577855a67aaddea7a4aa71e9bc3d737cd",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/e833881577855a67aaddea7a4aa71e9bc3d737cd"
+    }
+  },
+  {
+    "name": "1.10.1",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.10.1",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.10.1",
+    "commit": {
+      "sha": "c2b4c8e2e25e36dc4bb9ae4cfab129b667381217",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/c2b4c8e2e25e36dc4bb9ae4cfab129b667381217"
+    }
+  },
+  {
+    "name": "1.10.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.10.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.10.0",
+    "commit": {
+      "sha": "e045331e321e69fc09260121700448565ad717d0",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/e045331e321e69fc09260121700448565ad717d0"
+    }
+  },
+  {
+    "name": "1.9.0",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.9.0",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.9.0",
+    "commit": {
+      "sha": "dc164c71be59e9d905a79db33aa77ba45e2ece2b",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/dc164c71be59e9d905a79db33aa77ba45e2ece2b"
+    }
+  },
+  {
+    "name": "1.9.0-rc2",
+    "zipball_url": "https://api.github.com/repos/docker/docker-py/zipball/1.9.0-rc2",
+    "tarball_url": "https://api.github.com/repos/docker/docker-py/tarball/1.9.0-rc2",
+    "commit": {
+      "sha": "0f15c6599df8cdfb64954595926a63c19c05be80",
+      "url": "https://api.github.com/repos/docker/docker-py/commits/0f15c6599df8cdfb64954595926a63c19c05be80"
+    }
+  }
+]
