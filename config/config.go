@@ -3,10 +3,12 @@ package config
 import (
 	"io/ioutil"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
 
+var DefaultInterval = 4 * time.Hour
 var DefaultTimeout = 30 * time.Second
 
 func Get(key string) string {
@@ -36,10 +38,28 @@ func Lookup(key string, path string, defaultValue string) string {
 	return GetOrDefault(key, defaultValue)
 }
 
-func GetDuration(key string, path string) time.Duration {
+func GetInt(key string, path string, defaultValue int) int {
+	value := Lookup(key, path, "")
+
+	if asInt, err := strconv.Atoi(value); err == nil {
+		return asInt
+	}
+
+	return defaultValue
+}
+
+func GetInterval(key string, path string) time.Duration {
+	return LookupDuration(key, path, DefaultInterval)
+}
+
+func GetTimeout(key string, path string) time.Duration {
+	return LookupDuration(key, path, DefaultTimeout)
+}
+
+func LookupDuration(key string, path string, defaultValue time.Duration) time.Duration {
 	if duration, err := time.ParseDuration(Lookup(key, path, "")); err == nil {
 		return duration
 	}
 
-	return DefaultTimeout
+	return defaultValue
 }

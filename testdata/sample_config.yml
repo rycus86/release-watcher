@@ -10,10 +10,3 @@ releases:
 
   pypi:
     - repo: flask
-
-tags:
-  github:
-    - owner: rycus86
-      repo: prometheus-flask-exporter
-    - owner: rycus86
-      repo: ghost-client

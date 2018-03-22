@@ -1,21 +1,19 @@
 package providers
 
-// TODO models?
-type Provider interface {
-	Initialize()
-	GetName() string
-}
+import (
+	"github.com/rycus86/release-watcher/model"
+	"strings"
+)
 
-var providers []Provider
+var providers []model.Provider
 
-// TODO is this unused?
-func GetProviders() []Provider {
+func GetProviders() []model.Provider {
 	return providers
 }
 
-func GetProvider(name string) Provider {
+func GetProvider(name string) model.Provider {
 	for _, provider := range providers {
-		if provider.GetName() == name {
+		if strings.ToLower(provider.GetName()) == name {
 			return provider
 		}
 	}
@@ -23,7 +21,7 @@ func GetProvider(name string) Provider {
 	return nil
 }
 
-func RegisterProvider(provider Provider) {
+func RegisterProvider(provider model.Provider) {
 	providers = append(providers, provider)
 }
 

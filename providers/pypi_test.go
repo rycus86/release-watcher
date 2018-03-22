@@ -1,7 +1,8 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/config"
+	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/watcher"
 	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"net/http"
@@ -26,7 +27,7 @@ func TestFetchPyPIReleases(t *testing.T) {
 		client: &http.Client{},
 	}
 
-	releases, err := provider.FetchReleases(config.Project{Owner: "rycus86", Repo: "prometheus-flask-exporter"})
+	releases, err := provider.FetchReleases(model.Project{Owner: "rycus86", Repo: "prometheus-flask-exporter"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}
@@ -34,6 +35,8 @@ func TestFetchPyPIReleases(t *testing.T) {
 	if len(releases) != 13 {
 		t.Error("Wrong number of results")
 	}
+
+	watcher.SortReleases(releases)
 
 	sample := releases[1]
 

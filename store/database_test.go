@@ -1,8 +1,8 @@
 package store
 
 import (
-	"testing"
 	"github.com/rycus86/release-watcher/model"
+	"testing"
 )
 
 func TestInitialize(t *testing.T) {

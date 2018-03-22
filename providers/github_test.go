@@ -1,7 +1,7 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/config"
+	"github.com/rycus86/release-watcher/model"
 	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"testing"
@@ -24,7 +24,7 @@ func TestFetchGitHubReleases(t *testing.T) {
 	provider := GitHubProvider{}
 	provider.Initialize()
 
-	releases, err := provider.FetchReleases(config.Project{Owner: "docker", Repo: "docker-py"})
+	releases, err := provider.FetchReleases(model.Project{Owner: "docker", Repo: "docker-py"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}
@@ -44,43 +44,6 @@ func TestFetchGitHubReleases(t *testing.T) {
 	}
 
 	if sample.URL != "https://github.com/docker/docker-py/releases/tag/3.1.1" {
-		t.Errorf("Unexpected URL: %s", sample.URL)
-	}
-}
-
-func TestFetchGitHubTags(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
-
-	testdata, err := ioutil.ReadFile("../testdata/github_tags.json")
-	if err != nil {
-		t.Errorf("Failed to load test data: %s", err)
-	}
-
-	httpmock.RegisterResponder(
-		"GET", "https://api.github.com/repos/docker/docker-py/tags",
-		httpmock.NewStringResponder(200, string(testdata)),
-	)
-
-	provider := GitHubProvider{}
-	provider.Initialize()
-
-	releases, err := provider.FetchTags(config.Project{Owner: "docker", Repo: "docker-py"})
-	if err != nil {
-		t.Errorf("Failed to fetch releases: %s", err)
-	}
-
-	if len(releases) != 30 {
-		t.Error("Wrong number of results")
-	}
-
-	sample := releases[1]
-
-	if sample.Name != "3.1.2" {
-		t.Errorf("Unexpected name: %s", sample.Name)
-	}
-
-	if sample.URL != "https://github.com/docker/docker-py/commit/88b0d697aa5386c2ef90a5b480cd400ce5a32646" {
 		t.Errorf("Unexpected URL: %s", sample.URL)
 	}
 }

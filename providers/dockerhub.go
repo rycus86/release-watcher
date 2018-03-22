@@ -9,8 +9,11 @@ import (
 	"time"
 )
 
+const configPath = "/var/secrets/dockerhub"
+
 type DockerHubProvider struct {
-	client *http.Client
+	client   *http.Client
+	pageSize int
 }
 
 type dockerHubTagsResponse struct {
@@ -22,25 +25,29 @@ type dockerHubTagsResponse struct {
 
 func (provider *DockerHubProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: config.GetDuration("HTTP_TIMEOUT", "/var/secrets/dockerhub"),
+		Timeout: config.GetTimeout("HTTP_TIMEOUT", configPath),
 	}
+	provider.pageSize = config.GetInt("PAGE_SIZE", configPath, 50)
 
 	RegisterProvider(provider)
 }
 
 func (provider *DockerHubProvider) GetName() string {
-	return "dockerhub"
+	return "DockerHub"
 }
 
-func (provider *DockerHubProvider) FetchReleases(project config.Project) ([]model.Release, error) {
+func (provider *DockerHubProvider) FetchReleases(project model.Project) ([]model.Release, error) {
 	var releases []model.Release
 
 	owner := project.Owner
 	if owner == "" {
-		owner = "_"
+		owner = "library"
 	}
 
-	apiUrl := fmt.Sprintf("https://hub.docker.com/v2/repositories/%s/%s/tags/", project.Owner, project.Repo)
+	apiUrl := fmt.Sprintf(
+		"https://hub.docker.com/v2/repositories/%s/%s/tags/?page=1&page_size=%d",
+		owner, project.Repo, provider.pageSize)
+
 	response, err := provider.client.Get(apiUrl)
 	if err != nil {
 		return nil, err
@@ -53,7 +60,7 @@ func (provider *DockerHubProvider) FetchReleases(project config.Project) ([]mode
 	}
 
 	for _, release := range apiResponse.Results {
-		url := fmt.Sprintf("https://hub.docker.com/r/%s/%s/tags/", project.Owner, project.Repo)
+		url := fmt.Sprintf("https://hub.docker.com/r/%s/%s/tags/", owner, project.Repo)
 		published, err := time.Parse(time.RFC3339Nano, release.LastUpdated)
 		if err != nil {
 			published = time.Now()
@@ -63,6 +70,9 @@ func (provider *DockerHubProvider) FetchReleases(project config.Project) ([]mode
 			Name: release.Name,
 			URL:  url,
 			Date: published,
+
+			Provider: provider,
+			Project:  project,
 		})
 	}
 

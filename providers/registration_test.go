@@ -1,9 +1,12 @@
 package providers
 
-import "testing"
+import (
+	"github.com/rycus86/release-watcher/model"
+	"testing"
+)
 
 func TestRegisterProvider(t *testing.T) {
-	providers = make([]Provider, 0)
+	providers = make([]model.Provider, 0)
 
 	RegisterProvider(MockProvider{Name: "Test1"})
 
@@ -30,7 +33,7 @@ func TestRegisterProvider(t *testing.T) {
 }
 
 func TestGetProviders(t *testing.T) {
-	providers = make([]Provider, 0)
+	providers = make([]model.Provider, 0)
 
 	RegisterProvider(MockProvider{Name: "Test1"})
 	RegisterProvider(MockProvider{Name: "Test2"})
@@ -54,7 +57,7 @@ func TestGetProviders(t *testing.T) {
 }
 
 func TestGetProvider(t *testing.T) {
-	providers = make([]Provider, 0)
+	providers = make([]model.Provider, 0)
 
 	RegisterProvider(MockProvider{Name: "Test1"})
 	RegisterProvider(MockProvider{Name: "Test2"})

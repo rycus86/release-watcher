@@ -2,7 +2,6 @@ package providers
 
 import (
 	"context"
-	"fmt"
 	"github.com/google/go-github/github"
 	"github.com/rycus86/release-watcher/config"
 	"github.com/rycus86/release-watcher/model"
@@ -33,18 +32,18 @@ func (provider *GitHubProvider) Initialize() {
 }
 
 func (provider *GitHubProvider) GetName() string {
-	return "github"
+	return "GitHub"
 }
 
-func (provider *GitHubProvider) FetchReleases(project config.Project) ([]model.Release, error) {
+func (provider *GitHubProvider) FetchReleases(project model.Project) ([]model.Release, error) {
 	var releases []model.Release
 
 	ctx, cancel := context.WithTimeout(
-		context.Background(), config.GetDuration("HTTP_TIMEOUT", "/var/secrets/github"),
+		context.Background(), config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
 	)
 	defer cancel()
 
-	ghReleases, _, err := provider.client.Repositories.ListReleases(ctx, project.Owner, project.Repo, nil)
+	ghReleases, _, err := provider.client.Repositories.ListReleases(ctx, project.Owner, project.Repo, &github.ListOptions{PerPage: 50})
 	if err != nil {
 		return nil, err
 	}
@@ -54,37 +53,11 @@ func (provider *GitHubProvider) FetchReleases(project config.Project) ([]model.R
 			Name: release.GetName(),
 			URL:  release.GetHTMLURL(),
 			Date: release.GetPublishedAt().Time,
+
+			Provider: provider,
+			Project:  project,
 		})
 	}
 
 	return releases, nil
-}
-
-func (provider *GitHubProvider) FetchTags(project config.Project) ([]model.Tag, error) {
-	var tags []model.Tag
-
-	ctx, cancel := context.WithTimeout(
-		context.Background(), config.GetDuration("HTTP_TIMEOUT", "/var/secrets/github"),
-	)
-	defer cancel()
-
-	ghTags, _, err := provider.client.Repositories.ListTags(ctx, project.Owner, project.Repo, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	for _, tag := range ghTags {
-		url := tag.GetCommit().GetHTMLURL()
-		if url == "" {
-			url = fmt.Sprintf("https://github.com/%s/%s/commit/%s", project.Owner, project.Repo, tag.GetCommit().GetSHA())
-		}
-
-		tags = append(tags, model.Tag{
-			Name:    tag.GetName(),
-			URL:     url,
-			Message: tag.GetCommit().GetMessage(),
-		})
-	}
-
-	return tags, nil
 }

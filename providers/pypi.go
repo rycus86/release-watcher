@@ -6,7 +6,6 @@ import (
 	"github.com/rycus86/release-watcher/config"
 	"github.com/rycus86/release-watcher/model"
 	"net/http"
-	"sort"
 	"time"
 )
 
@@ -22,17 +21,17 @@ type pypiResponse struct {
 
 func (provider *PyPIProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: config.GetDuration("HTTP_TIMEOUT", "/var/secrets/pypi"),
+		Timeout: config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/pypi"),
 	}
 
 	RegisterProvider(provider)
 }
 
 func (provider *PyPIProvider) GetName() string {
-	return "pypi"
+	return "PyPI"
 }
 
-func (provider *PyPIProvider) FetchReleases(project config.Project) ([]model.Release, error) {
+func (provider *PyPIProvider) FetchReleases(project model.Project) ([]model.Release, error) {
 	var releases []model.Release
 
 	apiUrl := fmt.Sprintf("https://pypi.python.org/pypi/%s/json", project.Repo)
@@ -47,16 +46,7 @@ func (provider *PyPIProvider) FetchReleases(project config.Project) ([]model.Rel
 		return nil, err
 	}
 
-	var keys = make([]string, len(apiResponse.Releases))
-	for name := range apiResponse.Releases {
-		keys = append(keys, name)
-	}
-
-	sort.Sort(sort.Reverse(sort.StringSlice(keys)))
-
-	for _, name := range keys {
-		items := apiResponse.Releases[name]
-
+	for name, items := range apiResponse.Releases {
 		for _, release := range items {
 			published, err := time.Parse("2006-01-02T15:04:05", release.UploadTime)
 			if err != nil {
@@ -67,7 +57,11 @@ func (provider *PyPIProvider) FetchReleases(project config.Project) ([]model.Rel
 				Name: name,
 				URL:  fmt.Sprintf("https://pypi.python.org/pypi/%s/%s", project.Repo, name),
 				Date: published,
+
+				Provider: provider,
+				Project:  project,
 			})
+
 		}
 	}
 

@@ -1,84 +1,102 @@
 package main
 
 import (
+	"fmt"
 	"github.com/rycus86/release-watcher/config"
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/providers"
-	"github.com/rycus86/release-watcher/watcher"
 	"github.com/rycus86/release-watcher/store"
+	"github.com/rycus86/release-watcher/watcher"
 	"log"
-	"time"
 	"os"
 	"os/signal"
+	"regexp"
 	"syscall"
 )
 
 var (
-	releaseChannel = make(chan []model.Release)
-	signalChannel = make(chan os.Signal, 1)
+	releaseChannel  = make(chan []model.Release)
+	signalChannel   = make(chan os.Signal, 1)
+	shutdownChannel = make(chan struct{})
 )
 
-func Run(db model.Store, configuration *config.Configuration) {
+func StartWatchers(configuration *model.Configuration) {
 	for providerName, projects := range configuration.Releases {
 		provider := providers.GetProvider(providerName)
+
 		if provider == nil {
 			log.Panic("Provider not found:", providerName)
 		}
 
 		for _, project := range projects {
-			go Watch(db, provider, project)
+			go WatchReleases(provider, project)
 		}
 	}
+}
 
-	// TODO tags (maybe with the same model as releases?)
+func WatchReleases(provider model.Provider, project model.Project) {
+	rw, ok := provider.(watcher.ReleaseWatcher)
+	if !ok {
+		log.Println("The", provider.GetName(), "provider cannot watch releases")
+		return
+	}
 
+	watcher.WatchReleases(rw, project, releaseChannel, shutdownChannel)
+}
+
+func WaitForChanges(db model.Store) {
 	for {
 		select {
 		case releases := <-releaseChannel:
+			lastKnown := ""
+			hasNewRelease := false
+
 			for _, release := range releases {
-				// TODO filtering
-				Check(release)
+				if lastKnown == "" {  // TODO maybe keep all known releases in the database instead
+					lastKnown = GetLastKnownRelease(release.Project, release.Provider, db)
+				}
+
+				if release.Name == lastKnown {
+					break
+				}
+
+				// TODO proper filtering
+				matched, err := regexp.MatchString("^[0-9]+\\.[0-9]+\\.[0-9]+$", release.Name)
+				if !matched || err != nil {
+					continue
+				}
+
+				log.Println(
+					"[", release.Provider.GetName(), "]",
+					"New release :", release.Project, ":", release.Name)
+
+				if !hasNewRelease {
+					hasNewRelease = true
+
+					OnNewReleaseFound(release, db)
+				}
 			}
 
 		case s := <-signalChannel:
-			if s != syscall.SIGHUP { // TODO handle SIGHUP
+			if s == syscall.SIGHUP {
+				// TODO handle SIGHUP
+			} else {
+				close(shutdownChannel)
 				return
 			}
 		}
 	}
 }
 
-func Watch(db model.Store, provider providers.Provider, project config.Project) {
-	watcher, ok := provider.(watcher.ReleaseWatcher)
-	if !ok {
-		log.Println("The", provider.GetName(), "provider cannot watch releases")
-		return
-	}
-
-	// TODO need to supply a different default here
-	ticker := time.NewTicker(config.GetDuration("CHECK_INTERVAL", "/var/secrets/release-watcher"))
-
-	for {
-		select {
-		case <- ticker.C:
-			releases, err := watcher.FetchReleases(project)
-			if err != nil {
-				log.Println("Failed to fetch the releases of", project)
-				continue
-			}
-
-			// TODO sort the releases here
-
-			releaseChannel <- releases
-		}
-
-		// TODO shutdown/break
-	}
+func GetLastKnownRelease(project model.Project, provider model.Provider, db model.Store) string {
+	return db.Get(fmt.Sprintf("%s:%s:release", provider.GetName(), project))
 }
 
-func Check(release model.Release) {
-	// TODO check
-	// TODO will need the provider name too
+func OnNewReleaseFound(release model.Release, db model.Store) {
+	log.Println("Saving version", release.Name)
+	db.Set(fmt.Sprintf("%s:%s:release", release.Provider.GetName(), release.Project), release.Name)
+
+	// TODO notifications  https://github.com/nlopes/slack
 }
 
 func main() {
@@ -89,27 +107,26 @@ func main() {
 	dbPath := config.Lookup("DATABASE_PATH", "/var/secrets/release-watcher", ":memory:")
 	db, err := store.Initialize(dbPath)
 	if err != nil {
-		// TODO also include the error
-		panic("Failed to initialize the database")
+		log.Panicln("Failed to initialize the database:", err)
 	}
 	defer db.Close()
 
 	configPath := config.Lookup("CONFIGURATION_FILE", "/var/secrets/release-watcher", "release-watcher.yml")
-	configuration, err := config.ParseConfig(configPath)
+	configuration, err := config.ParseConfigurationFile(configPath)
 	if err != nil {
-		// TODO also include the error
-		panic("Failed load the configuration file")
+		log.Panicln("Failed load the configuration file:", err)
 	}
 
 	providers.InitializeProviders()
 
+	StartWatchers(configuration)
+
 	log.Println(
-		"Started watching", len(configuration.Releases), "projects for releases",
-		"and", len(configuration.Tags), "projects for tags",
-		"using", len(providers.GetProviders()), "providers",
+		"Started watching releases using",
+		len(providers.GetProviders()), "providers",
 	)
 
-	Run(db, configuration)
+	WaitForChanges(db)
 
 	log.Println("Application exiting")
 }
