@@ -1,5 +1,6 @@
 package providers
 
+// TODO models?
 type Provider interface {
 	Initialize()
 	GetName() string
@@ -7,8 +8,19 @@ type Provider interface {
 
 var providers []Provider
 
+// TODO is this unused?
 func GetProviders() []Provider {
 	return providers
+}
+
+func GetProvider(name string) Provider {
+	for _, provider := range providers {
+		if provider.GetName() == name {
+			return provider
+		}
+	}
+
+	return nil
 }
 
 func RegisterProvider(provider Provider) {

@@ -40,7 +40,7 @@ func (provider *GitHubProvider) FetchReleases(project config.Project) ([]model.R
 	var releases []model.Release
 
 	ctx, cancel := context.WithTimeout(
-		context.Background(), config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
+		context.Background(), config.GetDuration("HTTP_TIMEOUT", "/var/secrets/github"),
 	)
 	defer cancel()
 
@@ -64,7 +64,7 @@ func (provider *GitHubProvider) FetchTags(project config.Project) ([]model.Tag, 
 	var tags []model.Tag
 
 	ctx, cancel := context.WithTimeout(
-		context.Background(), config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
+		context.Background(), config.GetDuration("HTTP_TIMEOUT", "/var/secrets/github"),
 	)
 	defer cancel()
 

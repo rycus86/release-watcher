@@ -22,7 +22,7 @@ type dockerHubTagsResponse struct {
 
 func (provider *DockerHubProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/dockerhub"),
+		Timeout: config.GetDuration("HTTP_TIMEOUT", "/var/secrets/dockerhub"),
 	}
 
 	RegisterProvider(provider)

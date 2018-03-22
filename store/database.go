@@ -3,25 +3,53 @@ package store
 import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
-	"fmt"
+	"github.com/rycus86/release-watcher/model"
 )
 
-func DbTest() {
-	db, err := sql.Open("sqlite3", "file::memory:?cache=shared")
+type SQLiteStore struct {
+	db *sql.DB
+}
+
+func Initialize(path string) (model.Store, error) {
+	db, err := sql.Open("sqlite3", path)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
-	defer db.Close()
 
-	db.Exec("CREATE TABLE sample (key VARCHAR, value VARCHAR)")
-	db.Exec("INSERT INTO sample VALUES ('key1', 'value1')")
-	db.Exec("INSERT INTO sample VALUES ('key2', 'value2')")
-
-	rows, err := db.Query("SELECT key, value FROM sample")
-	for rows.Next() {
-		var key, value string
-		err = rows.Scan(&key, &value)
-
-		fmt.Println(key, value)
+	_, err = db.Exec("create table if not exists latest_version (name text primary key, version text)")
+	if err != nil {
+		return nil, err
 	}
+
+	store := SQLiteStore{db: db}
+	return &store, nil
+}
+
+func (s *SQLiteStore) Get(key string) string {
+	row := s.db.QueryRow("select version from latest_version where name = ?", key)
+	if row != nil {
+		var value string
+		row.Scan(&value)
+		return value
+	}
+
+	return ""
+}
+
+func (s *SQLiteStore) Set(key string, value string) error {
+	tx, err := s.db.Begin()
+	if err != nil {
+		return err
+	}
+
+	_, err = tx.Exec("insert or replace into latest_version (name, version) values (?, ?)", key, value)
+	if err == nil {
+		tx.Commit()
+	}
+
+	return err
+}
+
+func (s *SQLiteStore) Close() {
+	s.db.Close()
 }

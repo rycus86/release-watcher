@@ -22,7 +22,7 @@ type pypiResponse struct {
 
 func (provider *PyPIProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/pypi"),
+		Timeout: config.GetDuration("HTTP_TIMEOUT", "/var/secrets/pypi"),
 	}
 
 	RegisterProvider(provider)

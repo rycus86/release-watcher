@@ -1,10 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 )
 
+// TODO move to model
 type Project struct {
 	Owner string
 	Repo  string
@@ -27,4 +29,12 @@ func ParseConfig(path string) (*Configuration, error) {
 	}
 
 	return &configuration, nil
+}
+
+func (p Project) String() string {
+	if p.Owner != "" {
+		return fmt.Sprintf("%s/%s", p.Owner, p.Repo)
+	} else {
+		return p.Repo
+	}
 }

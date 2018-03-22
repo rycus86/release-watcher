@@ -53,6 +53,34 @@ func TestGetProviders(t *testing.T) {
 	}
 }
 
+func TestGetProvider(t *testing.T) {
+	providers = make([]Provider, 0)
+
+	RegisterProvider(MockProvider{Name: "Test1"})
+	RegisterProvider(MockProvider{Name: "Test2"})
+
+	p := GetProvider("Test1")
+	if p == nil {
+		t.Error("Provider not found")
+	}
+	if p.GetName() != "Test1" {
+		t.Error("Invalid provider found")
+	}
+
+	p = GetProvider("Test2")
+	if p == nil {
+		t.Error("Provider not found")
+	}
+	if p.GetName() != "Test2" {
+		t.Error("Invalid provider found")
+	}
+
+	p = GetProvider("NotFound")
+	if p != nil {
+		t.Error("Unexpected provider found")
+	}
+}
+
 type MockProvider struct {
 	Name        string
 	Initialized bool

@@ -36,7 +36,7 @@ func Lookup(key string, path string, defaultValue string) string {
 	return GetOrDefault(key, defaultValue)
 }
 
-func GetTimeout(key string, path string) time.Duration {
+func GetDuration(key string, path string) time.Duration {
 	if duration, err := time.ParseDuration(Lookup(key, path, "")); err == nil {
 		return duration
 	}
