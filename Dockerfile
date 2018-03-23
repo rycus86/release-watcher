@@ -1,4 +1,4 @@
-FROM debian:stretch as builder
+FROM golang:1.10 as builder
 
 ARG CC=""
 ARG CC_PKG=""
