@@ -1,0 +1,64 @@
+language: go
+go:
+  - "1.10"
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+install: skip
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - go test ./... -v -cover
+
+    - &deploy-stage
+      stage: build and deploy
+      sudo: required
+      script:
+        # build
+        - >
+          docker build -t es-cleaner:$DOCKER_TAG -f Dockerfile \
+            --build-arg CC=$CC \
+            --build-arg CC_PKG=$CC_PKG \
+            --build-arg CC_GOARCH=$CC_GOARCH \
+            .
+      after_success:
+        - |
+          docker login -u="rycus86" -p="$DOCKER_PASSWORD"
+          if [ "$TRAVIS_BRANCH" == "master" ]; then
+              docker tag es-cleaner:$DOCKER_TAG rycus86/release-watcher:$DOCKER_TAG
+              docker push rycus86/release-watcher:$DOCKER_TAG
+          fi
+      env:
+        - DOCKER_TAG=amd64
+
+    - <<: *deploy-stage
+      env:
+        - DOCKER_TAG=armhf
+        - CC=arm-linux-gnueabihf-gcc
+        - CC_PKG=gccgo-arm-linux-gnueabihf
+        - CC_GOARCH=arm
+
+    - <<: *deploy-stage
+      env:
+        - DOCKER_TAG=aarch64
+        - CC=aarch64-linux-gnu-gcc
+        - CC_PKG=gccgo-aarch64-linux-gnu
+        - CC_GOARCH=arm64
+
+    - stage: manifest
+      sudo: required
+      script:
+        - |
+        - docker login -u="rycus86" -p="${DOCKER_PASSWORD}"
+        - curl -fsSL https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64 > ./manifest-tool
+        - chmod +x ./manifest-tool
+        - ./manifest-tool push from-spec manifest.yml
+
