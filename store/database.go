@@ -17,7 +17,10 @@ func Initialize(path string) (model.Store, error) {
 	}
 
 	_, err = db.Exec(`
-		create table releases (provider text, project text, version text, primary key (provider, project, version))
+		create table if not exists releases (
+			provider text, project text, version text,
+			primary key (provider, project, version)
+		)
 	`)
 	if err != nil {
 		return nil, err

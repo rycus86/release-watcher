@@ -1,4 +1,4 @@
-FROM golang:1.10 as builder
+FROM debian:stretch as builder
 
 ARG CC=""
 ARG CC_PKG=""
@@ -12,10 +12,10 @@ RUN if [ -n "$CC_PKG" ]; then \
     && export CC=$CC \
     && export GOOS=linux \
     && export GOARCH=$CC_GOARCH \
-    && export CGO_ENABLED=0 \
+    && export CGO_ENABLED=1 \
     && go build -o /var/tmp/app -v github.com/rycus86/release-watcher
 
-FROM scratch
+FROM <target>
 
 LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 

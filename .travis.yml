@@ -24,6 +24,7 @@ jobs:
       script:
         # build
         - >
+          sed -i "s/FROM <target>/FROM $DOCKER_FROM/g" Dockerfile && \
           docker build -t es-cleaner:$DOCKER_TAG -f Dockerfile \
             --build-arg CC=$CC \
             --build-arg CC_PKG=$CC_PKG \
@@ -37,10 +38,12 @@ jobs:
               docker push rycus86/release-watcher:$DOCKER_TAG
           fi
       env:
+        - DOCKER_FROM=debian
         - DOCKER_TAG=amd64
 
     - <<: *deploy-stage
       env:
+        - DOCKER_FROM=rycus86/armhf-debian-qemu
         - DOCKER_TAG=armhf
         - CC=arm-linux-gnueabihf-gcc
         - CC_PKG=gccgo-arm-linux-gnueabihf
@@ -48,6 +51,7 @@ jobs:
 
     - <<: *deploy-stage
       env:
+        - DOCKER_FROM=rycus86/arm64v8-debian-qemu
         - DOCKER_TAG=aarch64
         - CC=aarch64-linux-gnu-gcc
         - CC_PKG=gccgo-aarch64-linux-gnu
