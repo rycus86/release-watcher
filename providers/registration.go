@@ -13,7 +13,7 @@ func GetProviders() []model.Provider {
 
 func GetProvider(name string) model.Provider {
 	for _, provider := range providers {
-		if strings.ToLower(provider.GetName()) == name {
+		if strings.ToLower(provider.GetName()) == strings.ToLower(name) {
 			return provider
 		}
 	}

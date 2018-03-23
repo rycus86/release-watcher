@@ -16,7 +16,9 @@ func Initialize(path string) (model.Store, error) {
 		return nil, err
 	}
 
-	_, err = db.Exec("create table if not exists latest_version (name text primary key, version text)")
+	_, err = db.Exec(`
+		create table releases (provider text, project text, version text, primary key (provider, project, version))
+	`)
 	if err != nil {
 		return nil, err
 	}
@@ -25,24 +27,25 @@ func Initialize(path string) (model.Store, error) {
 	return &store, nil
 }
 
-func (s *SQLiteStore) Get(key string) string {
-	row := s.db.QueryRow("select version from latest_version where name = ?", key)
-	if row != nil {
-		var value string
-		row.Scan(&value)
-		return value
-	}
+func (s *SQLiteStore) Exists(release model.Release) bool {
+	row := s.db.QueryRow(`
+		select 1 from releases where provider = ? and project = ? and version = ?
+	`, release.Provider.GetName(), release.Project.String(), release.Name)
 
-	return ""
+	var result int
+	row.Scan(&result)
+	return result != 0
 }
 
-func (s *SQLiteStore) Set(key string, value string) error {
+func (s *SQLiteStore) Mark(release model.Release) error {
 	tx, err := s.db.Begin()
 	if err != nil {
 		return err
 	}
 
-	_, err = tx.Exec("insert or replace into latest_version (name, version) values (?, ?)", key, value)
+	_, err = tx.Exec(`
+		insert into releases (provider, project, version) values (?, ?, ?)
+	`, release.Provider.GetName(), release.Project.String(), release.Name)
 	if err == nil {
 		tx.Commit()
 	}

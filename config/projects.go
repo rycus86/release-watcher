@@ -17,5 +17,16 @@ func ParseConfigurationFile(path string) (*model.Configuration, error) {
 		return nil, err
 	}
 
+	configuration.Path = path
+
 	return &configuration, nil
+}
+
+func Reload(c *model.Configuration) error {
+	if newConfig, err := ParseConfigurationFile(c.Path); err != nil {
+		return err
+	} else {
+		c.Releases = newConfig.Releases
+		return nil
+	}
 }

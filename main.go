@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"github.com/rycus86/release-watcher/config"
 	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/notifications"
 	"github.com/rycus86/release-watcher/providers"
 	"github.com/rycus86/release-watcher/store"
 	"github.com/rycus86/release-watcher/watcher"
@@ -44,24 +44,20 @@ func WatchReleases(provider model.Provider, project model.Project) {
 	watcher.WatchReleases(rw, project, releaseChannel, shutdownChannel)
 }
 
-func WaitForChanges(db model.Store) {
+func WaitForChanges(db model.Store, notifier notifications.NotificationManager, reloadHandler func()) {
 	for {
 		select {
 		case releases := <-releaseChannel:
-			lastKnown := ""
 			hasNewRelease := false
 
 			for _, release := range releases {
-				if lastKnown == "" {  // TODO maybe keep all known releases in the database instead
-					lastKnown = GetLastKnownRelease(release.Project, release.Provider, db)
-				}
-
-				if release.Name == lastKnown {
+				if db.Exists(release) {
 					break
 				}
 
-				// TODO proper filtering
-				matched, err := regexp.MatchString("^[0-9]+\\.[0-9]+\\.[0-9]+$", release.Name)
+				filter := release.Project.GetFilter()
+
+				matched, err := regexp.MatchString(filter, release.Name)
 				if !matched || err != nil {
 					continue
 				}
@@ -70,33 +66,34 @@ func WaitForChanges(db model.Store) {
 					"[", release.Provider.GetName(), "]",
 					"New release :", release.Project, ":", release.Name)
 
+				if err := db.Mark(release); err != nil {
+					log.Println("Failed to save the new version:", err)
+				}
+
 				if !hasNewRelease {
 					hasNewRelease = true
 
-					OnNewReleaseFound(release, db)
+					if err := notifier.SendNotification(&release); err != nil {
+						log.Println("Failed to send notifications:", err)
+					}
 				}
 			}
 
 		case s := <-signalChannel:
 			if s == syscall.SIGHUP {
-				// TODO handle SIGHUP
+				log.Println("Reload signal received")
+
+				reloadHandler()
+
 			} else {
+				log.Println("Shutdown signal received")
+
 				close(shutdownChannel)
 				return
+
 			}
 		}
 	}
-}
-
-func GetLastKnownRelease(project model.Project, provider model.Provider, db model.Store) string {
-	return db.Get(fmt.Sprintf("%s:%s:release", provider.GetName(), project))
-}
-
-func OnNewReleaseFound(release model.Release, db model.Store) {
-	log.Println("Saving version", release.Name)
-	db.Set(fmt.Sprintf("%s:%s:release", release.Provider.GetName(), release.Project), release.Name)
-
-	// TODO notifications  https://github.com/nlopes/slack
 }
 
 func main() {
@@ -104,7 +101,7 @@ func main() {
 
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
-	dbPath := config.Lookup("DATABASE_PATH", "/var/secrets/release-watcher", ":memory:")
+	dbPath := config.Lookup("DATABASE_PATH", "/var/secrets/release-watcher", "file::memory:?cache=shared")
 	db, err := store.Initialize(dbPath)
 	if err != nil {
 		log.Panicln("Failed to initialize the database:", err)
@@ -117,6 +114,17 @@ func main() {
 		log.Panicln("Failed load the configuration file:", err)
 	}
 
+	notifier := notifications.NewNotificationManager()
+
+	reloadHandler := func() {
+		close(shutdownChannel)
+
+		shutdownChannel = make(chan struct{})
+
+		config.Reload(configuration)
+		StartWatchers(configuration)
+	}
+
 	providers.InitializeProviders()
 
 	StartWatchers(configuration)
@@ -126,7 +134,7 @@ func main() {
 		len(providers.GetProviders()), "providers",
 	)
 
-	WaitForChanges(db)
+	WaitForChanges(db, notifier, reloadHandler)
 
 	log.Println("Application exiting")
 }

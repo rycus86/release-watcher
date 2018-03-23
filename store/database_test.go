@@ -13,29 +13,62 @@ func TestInitialize(t *testing.T) {
 	defer db.Close()
 }
 
-func TestGetSet(t *testing.T) {
+func TestExistsAndMark(t *testing.T) {
 	db, err := InitForTesting()
 	if err != nil {
 		t.Error("Failed to initialize the store:", err)
 	}
 	defer db.Close()
 
-	err = db.Set("key:x", "value:x")
-	if err != nil {
-		t.Error("Failed to set value:", err)
+	release1 := model.Release{
+		Provider: mockProvider{
+			Name: "TestProvider",
+		},
+		Project: model.Project{
+			Owner: "sample",
+			Repo:  "repo",
+		},
+		Name: "test-tag",
 	}
 
-	err = db.Set("key:y", "value:y")
-	if err != nil {
-		t.Error("Failed to set value:", err)
+	release2 := model.Release{
+		Provider: mockProvider{
+			Name: "TestProvider",
+		},
+		Project: model.Project{
+			Owner: "sample",
+			Repo:  "alt",
+		},
+		Name: "1.0.0",
 	}
 
-	value := db.Get("key:x")
-	if value != "value:x" {
-		t.Error("Unexpected value:", value)
+	err = db.Mark(release1)
+	if err != nil {
+		t.Error("Failed to mark a release:", err)
+	}
+
+	err = db.Mark(release2)
+	if err != nil {
+		t.Error("Failed to mark a release:", err)
+	}
+
+	if !db.Exists(release1) || !db.Exists(release2) {
+		t.Error("Saved release not found")
 	}
 }
 
 func InitForTesting() (model.Store, error) {
 	return Initialize("file::memory:?cache=shared")
+}
+
+type mockProvider struct {
+	Name string
+}
+
+func (p mockProvider) Initialize() {
+
+}
+
+func (p mockProvider) GetName() string {
+	return p.Name
 }
