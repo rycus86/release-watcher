@@ -5,7 +5,6 @@ ARG CC_PKG=""
 ARG CC_GOARCH=""
 
 ADD . /go/src/github.com/rycus86/release-watcher
-WORKDIR /go/src/github.com/rycus86/release-watcher
 
 RUN if [ -n "$CC_PKG" ]; then \
       apt-get update && apt-get install -y $CC_PKG; \
@@ -14,7 +13,7 @@ RUN if [ -n "$CC_PKG" ]; then \
     && export GOOS=linux \
     && export GOARCH=$CC_GOARCH \
     && export CGO_ENABLED=0 \
-    && go build -o /var/tmp/app -v .
+    && go build -o /var/tmp/app -v github.com/rycus86/release-watcher
 
 FROM scratch
 
