@@ -17,8 +17,8 @@ func (provider *GitHubProvider) Initialize() {
 
 	if username != "" && password != "" {
 		transport := github.BasicAuthTransport{
-			Username: "x",
-			Password: "x",
+			Username: username,
+			Password: password,
 		}
 
 		provider.client = github.NewClient(transport.Client())

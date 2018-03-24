@@ -23,7 +23,7 @@ jobs:
       sudo: required
       script:
         # build
-        - sed -i "s/FROM <target>/FROM $DOCKER_FROM/g" Dockerfile
+        - sed -i "s#FROM <target>#FROM $DOCKER_FROM#" Dockerfile
         - >
           docker build -t es-cleaner:$DOCKER_TAG -f Dockerfile \
             --build-arg CC=$CC \
