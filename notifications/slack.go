@@ -51,7 +51,7 @@ func (m *SlackNotificationManager) SendNotification(release *model.Release) erro
 	}
 
 	if m.username != "" {
-		payload["username"] = m.channel
+		payload["username"] = m.username
 	}
 
 	if m.iconUrl != "" {
