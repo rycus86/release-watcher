@@ -19,6 +19,10 @@ FROM <target>
 
 LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 
+RUN    apt-get update \
+    && apt-get install -y ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /var/tmp/app /release-watcher
 
 CMD [ "/release-watcher" ]
