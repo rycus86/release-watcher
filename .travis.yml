@@ -22,8 +22,10 @@ jobs:
       stage: build and deploy
       sudo: required
       script:
-        # build
+        # prepare
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
         - sed -i "s#FROM <target>#FROM $DOCKER_FROM#" Dockerfile
+        # build
         - >
           docker build -t es-cleaner:$DOCKER_TAG -f Dockerfile \
             --build-arg CC=$CC \
