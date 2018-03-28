@@ -39,6 +39,10 @@ func fetchNow(w ReleaseWatcher, project model.Project, outChannel chan<- []model
 		return
 	}
 
+	if len(releases) == 0 {
+		return
+	}
+
 	SortReleases(Releases(releases))
 
 	outChannel <- releases
