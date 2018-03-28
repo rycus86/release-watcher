@@ -52,6 +52,7 @@ func (provider *DockerHubProvider) FetchReleases(project model.Project) ([]model
 	if err != nil {
 		return nil, err
 	}
+	defer response.Body.Close()
 
 	var apiResponse = dockerHubTagsResponse{}
 	err = json.NewDecoder(response.Body).Decode(&apiResponse)

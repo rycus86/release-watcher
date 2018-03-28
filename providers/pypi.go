@@ -39,6 +39,7 @@ func (provider *PyPIProvider) FetchReleases(project model.Project) ([]model.Rele
 	if err != nil {
 		return nil, err
 	}
+	defer response.Body.Close()
 
 	var apiResponse = pypiResponse{}
 	err = json.NewDecoder(response.Body).Decode(&apiResponse)
