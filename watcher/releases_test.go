@@ -1,6 +1,7 @@
 package watcher
 
 import (
+	"errors"
 	"github.com/rycus86/release-watcher/model"
 	"os"
 	"testing"
@@ -117,15 +118,42 @@ func TestWatchTicker(t *testing.T) {
 	}
 }
 
+func TestNoReleasesOnErrors(t *testing.T) {
+	w := &mockWatcher{
+		Error: errors.New("Test Error"),
+	}
+
+	project := model.Project{
+		Owner: "mock",
+		Repo:  "repo",
+	}
+
+	out := make(chan []model.Release, 1)
+	done := make(chan struct{})
+
+	close(done)
+	defer close(out)
+
+	WatchReleases(w, project, out, done)
+
+	if w.ErrorCount != 1 {
+		t.Error("Expected to return an error")
+	}
+}
+
 type mockWatcher struct{
 	Releases     []model.Release
 	NextReleases []model.Release
 	Error        error
 	FetchCount   int
+	ErrorCount   int
 }
 
 func (m *mockWatcher) FetchReleases(project model.Project) ([]model.Release, error) {
 	m.FetchCount++
+	if m.Error != nil {
+		m.ErrorCount++
+	}
 
 	defer func() {
 		m.Releases = m.NextReleases
