@@ -115,6 +115,7 @@ func main() {
 	}
 
 	notifier := notifications.NewNotificationManager()
+	defer notifier.Close()
 
 	reloadHandler := func() {
 		close(shutdownChannel)
