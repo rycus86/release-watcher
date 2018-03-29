@@ -51,15 +51,15 @@ func WaitForChanges(db model.Store, notifier notifications.NotificationManager, 
 			hasNewRelease := false
 
 			for _, release := range releases {
-				if db.Exists(release) {
-					break
-				}
-
 				filter := release.Project.GetFilter()
 
 				matched, err := regexp.MatchString(filter, release.Name)
 				if !matched || err != nil {
 					continue
+				}
+
+				if db.Exists(release) {
+					break
 				}
 
 				log.Println(
