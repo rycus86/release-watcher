@@ -29,4 +29,5 @@ func InitializeProviders() {
 	(&GitHubProvider{}).Initialize()
 	(&DockerHubProvider{}).Initialize()
 	(&PyPIProvider{}).Initialize()
+	(&JetBrainsProvider{}).Initialize()
 }

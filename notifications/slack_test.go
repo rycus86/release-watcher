@@ -1,8 +1,8 @@
 package notifications
 
 import (
-	"github.com/rycus86/release-watcher/model"
 	"encoding/json"
+	"github.com/rycus86/release-watcher/model"
 	"net/http"
 	"net/http/httptest"
 	"os"

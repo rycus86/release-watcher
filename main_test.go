@@ -59,7 +59,7 @@ func TestPanicOnUnknownProviders(t *testing.T) {
 
 	configuration := model.Configuration{
 		Releases: map[string][]model.Project{
-			"github"  : []model.Project{},
+			"github":   []model.Project{},
 			"testfake": []model.Project{},
 		},
 	}
@@ -225,7 +225,7 @@ func registerResponder(url string, response string) {
 	)
 }
 
-type mockStore struct{
+type mockStore struct {
 	callExists string
 	callMark   string
 }
@@ -243,7 +243,7 @@ func (s *mockStore) Mark(r model.Release) error {
 func (s *mockStore) Close() {
 }
 
-type mockNotifier struct{
+type mockNotifier struct {
 	callSend string
 }
 

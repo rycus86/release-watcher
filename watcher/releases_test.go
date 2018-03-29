@@ -21,17 +21,17 @@ func TestWatchOnce(t *testing.T) {
 			Provider: w,
 			Project:  project,
 
-			Name:     "0.0.1",
-			Date:     time.Now().Add(-10 * time.Minute),
-			URL:      "http://test.release/0.0.1",
+			Name: "0.0.1",
+			Date: time.Now().Add(-10 * time.Minute),
+			URL:  "http://test.release/0.0.1",
 		},
 		{
 			Provider: w,
 			Project:  project,
 
-			Name:     "0.0.2",
-			Date:     time.Now().Add(-3 * time.Minute),
-			URL:      "http://test.release/0.0.2",
+			Name: "0.0.2",
+			Date: time.Now().Add(-3 * time.Minute),
+			URL:  "http://test.release/0.0.2",
 		},
 	}
 
@@ -99,8 +99,8 @@ func TestWatchTicker(t *testing.T) {
 			Provider: w,
 			Project:  project,
 
-			Name:     "1.2.3",
-			URL:      "http://test.ticker/1.2.3",
+			Name: "1.2.3",
+			URL:  "http://test.ticker/1.2.3",
 		},
 	}
 
@@ -141,7 +141,7 @@ func TestNoReleasesOnErrors(t *testing.T) {
 	}
 }
 
-type mockWatcher struct{
+type mockWatcher struct {
 	Releases     []model.Release
 	NextReleases []model.Release
 	Error        error

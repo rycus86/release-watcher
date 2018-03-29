@@ -1,0 +1,358 @@
+[
+  {
+    "code": "GO",
+    "salesCode": "GO",
+    "name": "GoLand",
+    "link": "https://www.jetbrains.com/go",
+    "description": "Capable and Ergonomic Go IDE",
+    "categories": [
+      "IDE"
+    ],
+    "releases": [
+      {
+        "date": "2018-03-29",
+        "type": "release",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-2018.1.tar.gz",
+            "size": 217959144,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2018.1.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-2018.1.dmg",
+            "size": 208399253,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2018.1.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-2018.1.exe",
+            "size": 166131504,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2018.1.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+2018.1+Release+Notes",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.4203.567"
+      },
+      {
+        "date": "2018-03-26",
+        "type": "eap",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.544.tar.gz",
+            "size": 217975219,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.544.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.544.dmg",
+            "size": 207779077,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.544.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.544.exe",
+            "size": 165903680,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.544.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.4203.544+Release+Notes",
+        "printableReleaseType": "Release Candidate",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.4203.544",
+        "whatsnew": "<p>The build brings various bugfixes. For more details about the build, see the release notes. If no critical issues are found, the build will become GA.</p>\n"
+      },
+      {
+        "date": "2018-03-20",
+        "type": "eap",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.496.tar.gz",
+            "size": 214810513,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.496.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.496.dmg",
+            "size": 204589100,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.496.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.496.exe",
+            "size": 162013672,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.496.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.4203.496+Release+Notes",
+        "printableReleaseType": "Public Preview",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.4203.496",
+        "whatsnew": "<p>The build brings various bugfixes. For more details about the build, see the release notes.</p>\n\n<p>For an overview of what's new in GoLand 2018.1 Public Preview, read the <a\n    href=\"https://blog.jetbrains.com/go/2018/03/20/goland-2018-1-public-preview/\">blog post</a>.</p>\n"
+      },
+      {
+        "date": "2018-03-16",
+        "type": "eap",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.206.tar.gz",
+            "size": 214798968,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.206.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.206.dmg",
+            "size": 204576764,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.206.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-181.4203.206.exe",
+            "size": 162003200,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4203.206.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.4203.206+Release+Notes",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.4203.206",
+        "whatsnew": "<ul>\n    <li>Any example function displayed in the <strong>Quick Documentation</strong> popup now can be opened in a <strong>Scratch\n        File</strong>.\n    </li>\n    <li>The new <strong>Postfix Completion</strong> template \"<strong>.p</strong>\" prepends an expression on the left\n        side of the caret with a\n        pointer operator.\n    </li>\n    <li>The <strong>Code Style</strong> settings offer new options: <strong>Use back quotes for imports</strong>,\n        <strong>Add parentheses for a single import</strong>, <strong>Add leading space to comments</strong>.</li>\n    <li>Many improvements related to code highlighting.\n    </li>\n</ul>\n"
+      },
+      {
+        "date": "2018-03-09",
+        "type": "eap",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-181.4096.27.tar.gz",
+            "size": 215755969,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4096.27.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-181.4096.27.dmg",
+            "size": 205551680,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4096.27.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-181.4096.27.exe",
+            "size": 163228632,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.4096.27.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.4096.27+Release+Notes",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.4096.27",
+        "whatsnew": "<ul>\n    <li>The update brings the support for <a href=\"https://github.com/golang/dep\">dep</a>, the official experimental dependency management tool.\n        The IDE provides a project wizard for creating new dep projects and supports importing existing dep projects. For unresolved import statements, the IDE offers a quick-fix that runs <strong>dep ensure</strong>.</li>\n    <li>The auto-import mechanism got smarter and now applies only if the resulting code compiles with no errors (<a\n            href=\"https://youtrack.jetbrains.com/issue/GO-1730\">GO-1730</a>). Otherwise, the IDE prompts a quick-fix that adds the corresponding import statement.</li>\n    <li>A code completion suggestion for boolean expressions now can be at selected and negated at once by pressing \"!\" (<a\n        href=\"https://youtrack.jetbrains.com/issue/GO-5411\">GO-5411</a>). </li>\n    <li>A scratch file, created from a Go code selection, automatically gets all proper import statements. You can use\n        <a href=\"https://www.jetbrains.com/help/idea/scratches.html\">Scratch Files</a> to have a \"Go Playground\"-like editing session with the full IDE support.</li>\n    <li>The global symbols now can be renamed and searched for usages much faster.</li>\n    <li>The inspection that reports type mismatch now respect type aliases (<a\n        href=\"https://youtrack.jetbrains.com/issue/GO-5190\">GO-5190</a> and <a\n        href=\"https://youtrack.jetbrains.com/issue/GO-5408\">GO-5408</a>).</li>\n    <li>Note, the new experimental tool for dependency management, <a href=\"https://github.com/golang/vgo\">vgo</a>, will be evaluated please watch <a\n        href=\"https://youtrack.jetbrains.com/issue/GO-5390\">GO-5390</a> for updates.</li>\n</ul>\n"
+      },
+      {
+        "date": "2018-02-22",
+        "type": "eap",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-181.3870.28.tar.gz",
+            "size": 215342566,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.3870.28.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-181.3870.28.dmg",
+            "size": 205116600,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.3870.28.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-181.3870.28.exe",
+            "size": 162978768,
+            "checksumLink": "https://download.jetbrains.com/go/goland-181.3870.28.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.3870.28+Release+Notes",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.3870.28",
+        "whatsnew": "<ul>\n    <li>The IDE is now able to attach the <strong>Debugger</strong> to locally running processes (<a\n        href=\"https://youtrack.jetbrains.com/issue/GO-4867\">GO-4867</a>).\n    </li>\n    <li>The Go <strong>Scratch Files</strong> are now created from the predefined templates that can be customized in\n        <strong>Settings</strong> |\n        <strong>Editor</strong> |\n        <strong>File and Code Templates</strong>.\n    </li>\n    <li>The new \"<strong>.if</strong>\" <strong>Postfix Completion</strong> template is available to transform an entered\n        <strong>bool</strong> expression into an\n        <strong>if</strong> statement (<a href=\"https://youtrack.jetbrains.com/issue/GO-4094\">GO-4094</a>).\n    </li>\n    <li>All the <strong>Postfix Completion</strong> templates can now be disabled or enabled. Earlier some of the\n        templates were not present in the\n        <strong>Settings</strong> (<a\n            href=\"https://youtrack.jetbrains.com/issue/GO-5165 \">GO-5165</a>).\n    </li>\n    <li>The update fixes the case when the IDE sometimes used to apply the <strong>Postfix Completion</strong> template to the function instead of the argument (<a\n        href=\"https://youtrack.jetbrains.com/issue/GO-5125\">GO-5125</a>).</li>\n    <li>The IDE now does not run <strong>\n        Example</strong> functions within go tests if those functions have no output values (<a\n        href=\"https://youtrack.jetbrains.com/issue/GO-2029\">GO-2029</a>).</li>\n</ul>\n\n<ul>\n    <li>The update brings the long-awaited support for partial <strong>Git</strong> commits (<a href=\"https://youtrack.jetbrains.com/issue/IDEA-63201\">IDEA-63201</a>).</li>\n    <li>Last but not least, the <strong>VCS</strong> tool window now allow you to group the changes by the repositories.</li>\n</ul>\n\n<p>For more details ans screenshots, please refer to the <a\n    href=\"https://blog.jetbrains.com/go/2018/02/22/goland-2018-1-eap-4-is-here-partial-commits-for-git-attaching-debugger-to-local-processes-and-more/\">blog\n    post</a>.</p>\n"
+      },
+      {
+        "date": "2018-02-15",
+        "type": "eap",
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.3741.27+Release+Notes",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.3741.27",
+        "whatsnew": "<ul>\n    <li>The <strong>Test Runner</strong> now supports the hierarchy of tests and correctly attributes the\n        output and compilation errors to individual tests and packages.</li>\n    <li>The <strong>Go Build</strong> run configuration now allows you to select and run multiple files (<a href=\"https://youtrack.jetbrains.com/issue/GO-555\">GO-555</a>).</li>\n    <li>The <strong>Quick Documentation</strong> action is now aware of <strong>example functions</strong> and includes them as part of the documentation (<a href=\"https://youtrack.jetbrains.com/issue/GO-2000\">GO-2000</a>).</li>\n    <li>The new <strong>Move</strong> refactoring allows you to move any top-level member to another file (<a href=\"https://youtrack.jetbrains.com/issue/GO-4088\">GO-4088</a>).</li>\n    <li>The <strong>Undo</strong> action when used along with <strong>File Watchers</strong>, doesn't offer to undo <strong>Reload from Disk </strong>anymore (<a href=\"https://youtrack.jetbrains.com/issue/GO-4726\">GO-4726</a>).</li>\n    <li>The <strong>Auto Import</strong> has been made smarter and prevents you from adding undesired import statements (<a href=\"https://youtrack.jetbrains.com/issue/GO-5118\">GO-5118</a>).</li>\n</ul>\n\n<p>For more details, please read the <a href=\"https://blog.jetbrains.com/go/2018/02/15/goland-2018-1-eap-3-move-refactoring-better-test-runner-go-build-quickdoc-and-more/\">blog post</a>.</p>\n"
+      },
+      {
+        "date": "2018-02-02",
+        "type": "eap",
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.3263.27+Release+Notes",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.3263.27",
+        "whatsnew": "<ul>\n    <li>The editor is now able to remove import statements for unused packages as you type. The option is called Optimize imports on the fly. You can enable it in\n        <strong>Settings</strong> | <strong>Go</strong> | <strong>Imports</strong>.</li>\n    <li>The <strong>Build</strong> run configuration now lets you use <strong>-o</strong> in the <strong>Go tools\n        arguments field</strong>.</li>\n    <li>When debugging, the IDE indicates shadowed variables in the <strong>Watches</strong> and\n        <strong>Variables</strong> tabs.</li>\n    <li>The name suggestion algorithm is now aware of the context and avoids name collisions, e.g. when extracting variables.</li>\n    <li>Some of the inspections that correspond to go vet and which are supposed to run before go test in <strong>Go\n        1.10</strong> were improved.</li>\n    <li>If you now click <strong>Enter</strong> when the caret is on a chain call or a string literal, the IDE auto-formats the resulting code.</li>\n</ul>\n\n<p>For more details, please read the <a href=\"https://blog.jetbrains.com/go/2018/02/02/goland-2018-1-eap-2-is-here/\">blog post</a>.</p>\n"
+      },
+      {
+        "date": "2018-01-22",
+        "type": "eap",
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+181.2784.36+Release+Notes",
+        "version": "2018.1",
+        "majorVersion": "2018.1",
+        "build": "181.2784.36",
+        "whatsnew": "<h4>Go 1.10</h4>\n<ul>\n    <li>For method expressions, the IDE now supports any type as a receiver.</li>\n    <li>The support for Go templates now respects the new keywords such as break and continue.</li>\n    <li>The formatter now offers correct formatting to three-index slices and single-method interfaces.</li>\n    <li>The inspection, that reports conditions that are always true (or false), now also spots unnecessary checks for functions on nil.</li>\n    <li>The inspection to detect infinite streams.</li>\n    <li>The IDE reports direct assignments to atomic values.</li>\n</ul>\n\n<h4>Code completion</h4>\n<ul>\n    <li>For return statements inside functions, code completion now suggest default values.</li>\n</ul>\n\n<h4>Intentions</h4>\n<ul>\n    <li>New intentions such as Flip for binary expressions, and Negate and Negate recursively for boolean expressions.</li>\n    <li>In addition to Negate, for if statement, you now can use Invert.</li>\n</ul>\n\n<h4>Performance</h4>\n<ul>\n    <li>the update makes it possible to limit indexing of the local project and avoid indexing an entire GOPATH.</li>\n</ul>\n\n<h4>Others</h4>\n<ul>\n    <li>The IDE now respects fractional scale factors when multiple HiDPI monitors are used.</li>\n    <li>The Replace in Path popup now previews replacements even if a regular expression is used.</li>\n    <li>Now any folder in the Project tool window can be easily opened in the Terminal tool window. The action is called Open in Terminal.</li>\n    <li>VCS\n        <ul>\n            <li>The Git Branches popup now supports pasting text from the clipboard.</li>\n            <li>The Force Push action is enabled by default for all branches except the protected ones. The Allow force push checkbox has been removed from the Preferences | Version Control | Git.</li>\n        </ul>\n    </li>\n    <li>VCS\n        <ul>\n            <li>Better code completion for SVG properties and values</li>\n            <li>Navigation from HTML to both compiled CSS and its source</li>\n            <li>Pasting HTML to JSX now respects React-specific attributes (className, onClick, onChange, etc).</li>\n        </ul>\n    </li>\n</ul>\n\n<h4>Major bug fixes</h4>\n<ul>\n    <li>The update has tons of bug fixes including a few major ones, such as with focus issues.</li>\n</ul>\n\n<p>For more details, please refer to the <a href=\"https://blog.jetbrains.com/go/2018/01/22/welcome-goland-2018-1-eap-better-inspections-completion-performance-and-more/\">blog post</a>.</p>\n"
+      },
+      {
+        "date": "2018-03-06",
+        "type": "release",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.3.tar.gz",
+            "size": 214166755,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.3.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.3.dmg",
+            "size": 203913867,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.3.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.3.exe",
+            "size": 163575200,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.3.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+173.4674.34+Release+Notes",
+        "version": "2017.3.3",
+        "majorVersion": "2017.3",
+        "build": "173.4674.34"
+      },
+      {
+        "date": "2018-01-29",
+        "type": "release",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.2.tar.gz",
+            "size": 214008724,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.2.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.2.dmg",
+            "size": 203740466,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.2.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.2.exe",
+            "size": 163417016,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.2.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+173.4548.17+Release+Notes",
+        "version": "2017.3.2",
+        "majorVersion": "2017.3",
+        "build": "173.4548.17"
+      },
+      {
+        "date": "2018-01-08",
+        "type": "release",
+        "downloads": {
+          "linux": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.1.tar.gz",
+            "size": 213951052,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.1.tar.gz.sha256"
+          },
+          "mac": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.1.dmg",
+            "size": 203715450,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.1.dmg.sha256"
+          },
+          "windows": {
+            "link": "https://download.jetbrains.com/go/goland-2017.3.1.exe",
+            "size": 163382672,
+            "checksumLink": "https://download.jetbrains.com/go/goland-2017.3.1.exe.sha256"
+          }
+        },
+        "notesLink": "https://confluence.jetbrains.com/display/GOLAND/GoLand+173.4381.1+Release+Notes",
+        "version": "2017.3.1",
+        "majorVersion": "2017.3",
+        "build": "173.4381.1"
+      },
+      {
+        "date": "2017-11-30",
+        "type": "release",
+        "version": "2017.3",
+        "majorVersion": "2017.3",
+        "build": "173.3727.144"
+      },
+      {
+        "date": "2017-11-24",
+        "type": "eap",
+        "version": "2017.3",
+        "majorVersion": "2017.3",
+        "build": "173.3727.96"
+      },
+      {
+        "date": "2017-11-21",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "173.3727.79"
+      },
+      {
+        "date": "2017-11-21",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "173.3727.73"
+      },
+      {
+        "date": "2017-11-16",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "173.3727.24"
+      },
+      {
+        "date": "2017-11-02",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "173.3531.21"
+      },
+      {
+        "date": "2017-10-25",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "173.3415.23"
+      },
+      {
+        "date": "2017-10-18",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "173.3188.63"
+      },
+      {
+        "date": "2017-09-28",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "173.2696.28"
+      },
+      {
+        "date": "2017-09-05",
+        "type": "eap",
+        "version": "1.0",
+        "majorVersion": "1.0",
+        "build": "172.3968.45"
+      }
+    ],
+    "distributions": {
+      "linux": {
+        "name": "Linux",
+        "extension": "tar.gz"
+      },
+      "mac": {
+        "name": "Mac OS X",
+        "extension": "dmg"
+      },
+      "windows": {
+        "name": "Windows",
+        "extension": "exe"
+      }
+    },
+    "forSale": true
+  }
+]
