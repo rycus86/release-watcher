@@ -25,8 +25,7 @@ func TestExistsAndMark(t *testing.T) {
 			Name: "TestProvider",
 		},
 		Project: model.Project{
-			Owner: "sample",
-			Repo:  "repo",
+			Name: "sample/repo",
 		},
 		Name: "test-tag",
 	}
@@ -36,8 +35,7 @@ func TestExistsAndMark(t *testing.T) {
 			Name: "TestProvider",
 		},
 		Project: model.Project{
-			Owner: "sample",
-			Repo:  "alt",
+			Name: "sample/alt",
 		},
 		Name: "1.0.0",
 	}
@@ -71,4 +69,8 @@ func (p mockProvider) Initialize() {
 
 func (p mockProvider) GetName() string {
 	return p.Name
+}
+
+func (p mockProvider) Parse(interface{}) model.GenericProject {
+	return nil
 }

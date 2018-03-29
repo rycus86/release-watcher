@@ -1,7 +1,6 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/model"
 	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"testing"
@@ -24,7 +23,7 @@ func TestFetchGitHubReleases(t *testing.T) {
 	provider := GitHubProvider{}
 	provider.Initialize()
 
-	releases, err := provider.FetchReleases(model.Project{Owner: "docker", Repo: "docker-py"})
+	releases, err := provider.FetchReleases(&GitHubProject{Owner: "docker", Repo: "docker-py"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}

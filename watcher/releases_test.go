@@ -12,8 +12,7 @@ func TestWatchOnce(t *testing.T) {
 	w := &mockWatcher{}
 
 	project := model.Project{
-		Owner: "mock",
-		Repo:  "repo",
+		Name: "mock/repo",
 	}
 
 	mr := []model.Release{
@@ -82,8 +81,7 @@ func TestWatchTicker(t *testing.T) {
 	w := &mockWatcher{}
 
 	project := model.Project{
-		Owner: "mock",
-		Repo:  "repo",
+		Name: "mock/repo",
 	}
 
 	out := make(chan []model.Release, 1)
@@ -124,8 +122,7 @@ func TestNoReleasesOnErrors(t *testing.T) {
 	}
 
 	project := model.Project{
-		Owner: "mock",
-		Repo:  "repo",
+		Name: "mock/repo",
 	}
 
 	out := make(chan []model.Release, 1)
@@ -149,7 +146,7 @@ type mockWatcher struct {
 	ErrorCount   int
 }
 
-func (m *mockWatcher) FetchReleases(project model.Project) ([]model.Release, error) {
+func (m *mockWatcher) FetchReleases(p model.GenericProject) ([]model.Release, error) {
 	m.FetchCount++
 	if m.Error != nil {
 		m.ErrorCount++
@@ -167,3 +164,7 @@ func (m *mockWatcher) GetName() string {
 }
 
 func (m *mockWatcher) Initialize() {}
+
+func (m *mockWatcher) Parse(interface{}) model.GenericProject {
+	return nil
+}

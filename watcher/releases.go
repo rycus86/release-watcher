@@ -1,7 +1,7 @@
 package watcher
 
 import (
-	"github.com/rycus86/release-watcher/config"
+	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"log"
 	"sort"
@@ -9,13 +9,13 @@ import (
 )
 
 type ReleaseWatcher interface {
-	FetchReleases(project model.Project) ([]model.Release, error)
+	FetchReleases(project model.GenericProject) ([]model.Release, error)
 }
 
-func WatchReleases(w ReleaseWatcher, project model.Project, outChannel chan<- []model.Release, done <-chan struct{}) {
+func WatchReleases(w ReleaseWatcher, project model.GenericProject, outChannel chan<- []model.Release, done <-chan struct{}) {
 	fetchNow(w, project, outChannel)
 
-	ticker := time.NewTicker(config.GetInterval("CHECK_INTERVAL", "/var/secrets/release-watcher"))
+	ticker := time.NewTicker(env.GetInterval("CHECK_INTERVAL", "/var/secrets/release-watcher"))
 
 	for {
 		select {
@@ -30,7 +30,7 @@ func WatchReleases(w ReleaseWatcher, project model.Project, outChannel chan<- []
 	}
 }
 
-func fetchNow(w ReleaseWatcher, project model.Project, outChannel chan<- []model.Release) {
+func fetchNow(w ReleaseWatcher, project model.GenericProject, outChannel chan<- []model.Release) {
 	log.Println("Fetching releases for", project, "using", w.(model.Provider).GetName())
 
 	releases, err := w.FetchReleases(project)

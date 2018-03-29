@@ -20,6 +20,12 @@
   version = "v1.6.0"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/mitchellh/mapstructure"
+  packages = ["."]
+  revision = "00c29f56e2386353d58c599509e8dc3801b0d716"
+
+[[projects]]
   branch = "v1"
   name = "gopkg.in/jarcoal/httpmock.v1"
   packages = ["."]
@@ -34,6 +40,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2e444267c194887fe112b2f548a9c7cd4aa228cae79712b9982784b191c48409"
+  inputs-digest = "db935c1fe0667d7ce3e6d6a70cc05f3939c05a06abeeeb2a08adb23d180be386"
   solver-name = "gps-cdcl"
   solver-version = 1

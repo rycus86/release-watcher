@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/rycus86/release-watcher/config"
+	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/notifications"
 	"github.com/rycus86/release-watcher/providers"
@@ -25,7 +26,7 @@ func StartWatchers(configuration *model.Configuration) {
 		provider := providers.GetProvider(providerName)
 
 		if provider == nil {
-			log.Panic("Provider not found:", providerName)
+			log.Panicln("Provider not found:", providerName)
 		}
 
 		for _, project := range projects {
@@ -34,7 +35,7 @@ func StartWatchers(configuration *model.Configuration) {
 	}
 }
 
-func WatchReleases(provider model.Provider, project model.Project) {
+func WatchReleases(provider model.Provider, project model.GenericProject) {
 	rw, ok := provider.(watcher.ReleaseWatcher)
 	if !ok {
 		log.Println("The", provider.GetName(), "provider cannot watch releases")
@@ -101,14 +102,16 @@ func main() {
 
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
-	dbPath := config.Lookup("DATABASE_PATH", "/var/secrets/release-watcher", "file::memory:?cache=shared")
+	dbPath := env.Lookup("DATABASE_PATH", "/var/secrets/release-watcher", "file::memory:?cache=shared")
 	db, err := store.Initialize(dbPath)
 	if err != nil {
 		log.Panicln("Failed to initialize the database:", err)
 	}
 	defer db.Close()
 
-	configPath := config.Lookup("CONFIGURATION_FILE", "/var/secrets/release-watcher", "release-watcher.yml")
+	providers.InitializeProviders()
+
+	configPath := env.Lookup("CONFIGURATION_FILE", "/var/secrets/release-watcher", "release-watcher.yml")
 	configuration, err := config.ParseConfigurationFile(configPath)
 	if err != nil {
 		log.Panicln("Failed load the configuration file:", err)
@@ -125,8 +128,6 @@ func main() {
 		config.Reload(configuration)
 		StartWatchers(configuration)
 	}
-
-	providers.InitializeProviders()
 
 	StartWatchers(configuration)
 

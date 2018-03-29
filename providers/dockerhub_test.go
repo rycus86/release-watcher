@@ -1,7 +1,6 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/model"
 	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"net/http"
@@ -26,7 +25,7 @@ func TestFetchDockerHubReleases(t *testing.T) {
 		client: &http.Client{},
 	}
 
-	releases, err := provider.FetchReleases(model.Project{Owner: "rycus86", Repo: "grafana"})
+	releases, err := provider.FetchReleases(&DockerHubProject{Owner: "rycus86", Repo: "grafana"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}
@@ -63,7 +62,7 @@ func TestFetchForLibraryImage(t *testing.T) {
 		httpmock.NewStringResponder(200, "{}"),
 	)
 
-	_, err := provider.FetchReleases(model.Project{Owner: "_", Repo: "nginx"})
+	_, err := provider.FetchReleases(&DockerHubProject{Owner: "_", Repo: "nginx"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}

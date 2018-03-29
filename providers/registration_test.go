@@ -96,3 +96,7 @@ func (p MockProvider) Initialize() {
 func (p MockProvider) GetName() string {
 	return p.Name
 }
+
+func (p MockProvider) Parse(interface{}) model.GenericProject {
+	return nil
+}

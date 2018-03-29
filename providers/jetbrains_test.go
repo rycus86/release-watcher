@@ -1,7 +1,6 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/model"
 	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"net/http"
@@ -26,7 +25,7 @@ func TestFetchJetBrainsReleases(t *testing.T) {
 		client: &http.Client{},
 	}
 
-	releases, err := provider.FetchReleases(model.Project{Repo: "go"})
+	releases, err := provider.FetchReleases(&JetBrainsProject{Name: "go", Alias: "GoLand"})
 	if err != nil {
 		t.Error("Failed:", err)
 	}

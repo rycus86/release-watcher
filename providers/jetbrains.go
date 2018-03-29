@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/rycus86/release-watcher/config"
+	"github.com/mitchellh/mapstructure"
+	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"net/http"
 	"strings"
@@ -29,9 +30,33 @@ type jetBrainsResponse struct {
 	} `json:"releases"`
 }
 
+type JetBrainsProject struct {
+	model.Project
+
+	Name   string
+	Filter string
+	Alias  string
+}
+
+func (p JetBrainsProject) String() string {
+	if p.Alias != "" {
+		return p.Alias
+	} else {
+		return p.Name
+	}
+}
+
+func (p JetBrainsProject) GetFilter() string {
+	if p.Filter != "" {
+		return p.Filter
+	}
+
+	return ".+"
+}
+
 func (provider *JetBrainsProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: config.GetTimeout("HTTP_TIMEOUT", configPath),
+		Timeout: env.GetTimeout("HTTP_TIMEOUT", configPath),
 	}
 
 	RegisterProvider(provider)
@@ -41,12 +66,25 @@ func (provider *JetBrainsProvider) GetName() string {
 	return "JetBrains"
 }
 
-func (provider *JetBrainsProvider) FetchReleases(project model.Project) ([]model.Release, error) {
+func (provider *JetBrainsProvider) Parse(input interface{}) model.GenericProject {
+	var project JetBrainsProject
+
+	err := mapstructure.Decode(input, &project)
+	if err != nil {
+		return nil
+	}
+
+	return &project
+}
+
+func (provider *JetBrainsProvider) FetchReleases(p model.GenericProject) ([]model.Release, error) {
 	var releases []model.Release
+
+	project := p.(*JetBrainsProject)
 
 	apiUrl := fmt.Sprintf(
 		"https://data.services.jetbrains.com/products?code=%s",
-		strings.ToUpper(project.Repo),
+		strings.ToUpper(project.Name),
 	)
 
 	response, err := provider.client.Get(apiUrl)

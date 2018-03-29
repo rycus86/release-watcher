@@ -27,7 +27,7 @@ func TestFetchPyPIReleases(t *testing.T) {
 		client: &http.Client{},
 	}
 
-	releases, err := provider.FetchReleases(model.Project{Owner: "rycus86", Repo: "prometheus-flask-exporter"})
+	releases, err := provider.FetchReleases(&model.Project{Name: "prometheus-flask-exporter"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}

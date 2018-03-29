@@ -9,4 +9,14 @@ releases:
       repo: grafana
 
   pypi:
-    - repo: flask
+    - name: flask
+
+  jetbrains:
+    - name: go
+      alias: GoLand
+
+    - name: iiu
+      alias: IntelliJ IDEA
+
+    - name: pcp
+      alias: PyCharm

@@ -23,9 +23,9 @@ func TestStartWatchers(t *testing.T) {
 	)
 
 	configuration := model.Configuration{
-		Releases: map[string][]model.Project{
-			"github": []model.Project{
-				model.Project{Owner: "docker", Repo: "docker-py"},
+		Releases: map[string][]model.GenericProject{
+			"github": {
+				&providers.GitHubProject{Owner: "docker", Repo: "docker-py"},
 			},
 		},
 	}
@@ -58,9 +58,9 @@ func TestPanicOnUnknownProviders(t *testing.T) {
 	}()
 
 	configuration := model.Configuration{
-		Releases: map[string][]model.Project{
-			"github":   []model.Project{},
-			"testfake": []model.Project{},
+		Releases: map[string][]model.GenericProject{
+			"github":   {},
+			"testfake": {},
 		},
 	}
 
@@ -84,15 +84,15 @@ func TestWaitForChanges(t *testing.T) {
 	)
 
 	configuration := model.Configuration{
-		Releases: map[string][]model.Project{
-			"github": []model.Project{
-				model.Project{Owner: "docker", Repo: "docker-py"},
+		Releases: map[string][]model.GenericProject{
+			"github": {
+				&providers.GitHubProject{Owner: "docker", Repo: "docker-py"},
 			},
-			"dockerhub": []model.Project{
-				model.Project{Owner: "rycus86", Repo: "grafana"},
+			"dockerhub": {
+				&providers.DockerHubProject{Owner: "rycus86", Repo: "grafana"},
 			},
-			"pypi": []model.Project{
-				model.Project{Repo: "prometheus-flask-exporter"},
+			"pypi": {
+				&model.Project{Name: "prometheus-flask-exporter"},
 			},
 		},
 	}

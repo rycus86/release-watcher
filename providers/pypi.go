@@ -3,7 +3,8 @@ package providers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/rycus86/release-watcher/config"
+	"github.com/mitchellh/mapstructure"
+	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"net/http"
 	"time"
@@ -21,7 +22,7 @@ type pypiResponse struct {
 
 func (provider *PyPIProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/pypi"),
+		Timeout: env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/pypi"),
 	}
 
 	RegisterProvider(provider)
@@ -31,10 +32,23 @@ func (provider *PyPIProvider) GetName() string {
 	return "PyPI"
 }
 
-func (provider *PyPIProvider) FetchReleases(project model.Project) ([]model.Release, error) {
+func (provider *PyPIProvider) Parse(input interface{}) model.GenericProject {
+	var project model.Project
+
+	err := mapstructure.Decode(input, &project)
+	if err != nil {
+		return nil
+	}
+
+	return &project
+}
+
+func (provider *PyPIProvider) FetchReleases(p model.GenericProject) ([]model.Release, error) {
 	var releases []model.Release
 
-	apiUrl := fmt.Sprintf("https://pypi.python.org/pypi/%s/json", project.Repo)
+	project := p.(*model.Project)
+
+	apiUrl := fmt.Sprintf("https://pypi.python.org/pypi/%s/json", project.Name)
 	response, err := provider.client.Get(apiUrl)
 	if err != nil {
 		return nil, err
@@ -47,7 +61,7 @@ func (provider *PyPIProvider) FetchReleases(project model.Project) ([]model.Rele
 		return nil, err
 	}
 
-	for name, items := range apiResponse.Releases {
+	for version, items := range apiResponse.Releases {
 		for _, release := range items {
 			published, err := time.Parse("2006-01-02T15:04:05", release.UploadTime)
 			if err != nil {
@@ -55,8 +69,8 @@ func (provider *PyPIProvider) FetchReleases(project model.Project) ([]model.Rele
 			}
 
 			releases = append(releases, model.Release{
-				Name: name,
-				URL:  fmt.Sprintf("https://pypi.python.org/pypi/%s/%s", project.Repo, name),
+				Name: version,
+				URL:  fmt.Sprintf("https://pypi.python.org/pypi/%s/%s", project.Name, version),
 				Date: published,
 
 				Provider: provider,

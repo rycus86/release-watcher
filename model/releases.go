@@ -4,7 +4,7 @@ import "time"
 
 type Release struct {
 	Provider Provider
-	Project  Project
+	Project  GenericProject
 
 	Name string
 	Date time.Time

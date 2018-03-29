@@ -3,7 +3,8 @@ package providers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/rycus86/release-watcher/config"
+	"github.com/mitchellh/mapstructure"
+	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"net/http"
 	"time"
@@ -23,11 +24,26 @@ type dockerHubTagsResponse struct {
 	} `json:"results"`
 }
 
+type DockerHubProject struct {
+	model.Project
+
+	Owner string
+	Repo  string
+}
+
+func (p DockerHubProject) String() string {
+	if p.Owner != "" {
+		return fmt.Sprintf("%s/%s", p.Owner, p.Repo)
+	} else {
+		return p.Repo
+	}
+}
+
 func (provider *DockerHubProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: config.GetTimeout("HTTP_TIMEOUT", configPath),
+		Timeout: env.GetTimeout("HTTP_TIMEOUT", configPath),
 	}
-	provider.pageSize = config.GetInt("PAGE_SIZE", configPath, 50)
+	provider.pageSize = env.GetInt("PAGE_SIZE", configPath, 50)
 
 	RegisterProvider(provider)
 }
@@ -36,8 +52,21 @@ func (provider *DockerHubProvider) GetName() string {
 	return "DockerHub"
 }
 
-func (provider *DockerHubProvider) FetchReleases(project model.Project) ([]model.Release, error) {
+func (provider *DockerHubProvider) Parse(input interface{}) model.GenericProject {
+	var project DockerHubProject
+
+	err := mapstructure.Decode(input, &project)
+	if err != nil {
+		return nil
+	}
+
+	return &project
+}
+
+func (provider *DockerHubProvider) FetchReleases(p model.GenericProject) ([]model.Release, error) {
 	var releases []model.Release
+
+	project := p.(*DockerHubProject)
 
 	owner := project.Owner
 	if owner == "" {

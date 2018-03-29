@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/rycus86/release-watcher/config"
+	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"net/http"
 )
@@ -20,13 +20,13 @@ type SlackNotificationManager struct {
 }
 
 func (m *SlackNotificationManager) initialize() {
-	m.webhookUrl = config.Lookup("SLACK_WEBHOOK_URL", "/var/secrets/slack", "")
-	m.channel = config.Lookup("SLACK_CHANNEL", "/var/secrets/slack", "")
-	m.username = config.Lookup("SLACK_USERNAME", "/var/secrets/slack", "release-watcher")
-	m.iconUrl = config.Lookup("SLACK_ICON_URL", "/var/secrets/slack", "")
+	m.webhookUrl = env.Lookup("SLACK_WEBHOOK_URL", "/var/secrets/slack", "")
+	m.channel = env.Lookup("SLACK_CHANNEL", "/var/secrets/slack", "")
+	m.username = env.Lookup("SLACK_USERNAME", "/var/secrets/slack", "release-watcher")
+	m.iconUrl = env.Lookup("SLACK_ICON_URL", "/var/secrets/slack", "")
 
 	m.httpClient = &http.Client{
-		Timeout: config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/slack"),
+		Timeout: env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/slack"),
 	}
 }
 
@@ -42,8 +42,14 @@ func (m *SlackNotificationManager) SendNotification(release *model.Release) erro
 		return errors.New("webhook URL is not configured")
 	}
 
+	text := fmt.Sprintf("`[New release]` *%s* : %s", release.Project, release.Name)
+
+	if release.URL != "" {
+		text = fmt.Sprintf("%s\n%s", text, release.URL)
+	}
+
 	payload := map[string]string{
-		"text": fmt.Sprintf("`[New release]` *%s* : %s", release.Project, release.Name),
+		"text": text,
 	}
 
 	if m.channel != "" {

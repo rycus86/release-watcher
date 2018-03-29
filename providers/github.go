@@ -2,8 +2,10 @@ package providers
 
 import (
 	"context"
+	"fmt"
 	"github.com/google/go-github/github"
-	"github.com/rycus86/release-watcher/config"
+	"github.com/mitchellh/mapstructure"
+	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 )
 
@@ -11,9 +13,20 @@ type GitHubProvider struct {
 	client *github.Client
 }
 
+type GitHubProject struct {
+	model.Project
+
+	Owner string
+	Repo  string
+}
+
+func (p GitHubProject) String() string {
+	return fmt.Sprintf("%s/%s", p.Owner, p.Repo)
+}
+
 func (provider *GitHubProvider) Initialize() {
-	username := config.Lookup("GITHUB_USERNAME", "/var/secrets/github", "")
-	password := config.Lookup("GITHUB_PASSWORD", "/var/secrets/github", "")
+	username := env.Lookup("GITHUB_USERNAME", "/var/secrets/github", "")
+	password := env.Lookup("GITHUB_PASSWORD", "/var/secrets/github", "")
 
 	if username != "" && password != "" {
 		transport := github.BasicAuthTransport{
@@ -35,11 +48,24 @@ func (provider *GitHubProvider) GetName() string {
 	return "GitHub"
 }
 
-func (provider *GitHubProvider) FetchReleases(project model.Project) ([]model.Release, error) {
+func (provider *GitHubProvider) Parse(input interface{}) model.GenericProject {
+	var project GitHubProject
+
+	err := mapstructure.Decode(input, &project)
+	if err != nil {
+		return nil
+	}
+
+	return &project
+}
+
+func (provider *GitHubProvider) FetchReleases(p model.GenericProject) ([]model.Release, error) {
 	var releases []model.Release
 
+	project := p.(*GitHubProject)
+
 	ctx, cancel := context.WithTimeout(
-		context.Background(), config.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
+		context.Background(), env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
 	)
 	defer cancel()
 

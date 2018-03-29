@@ -55,8 +55,7 @@ func TestSendNotification(t *testing.T) {
 
 	release := model.Release{
 		Project: model.Project{
-			Owner: "test",
-			Repo:  "repo",
+			Name: "test/repo",
 		},
 
 		Name: "0.1.2",
@@ -74,8 +73,7 @@ func TestDoesNotSendWithoutWebhookUrl(t *testing.T) {
 
 	release := model.Release{
 		Project: model.Project{
-			Owner: "test",
-			Repo:  "repo",
+			Name: "test/repo",
 		},
 
 		Name: "0.1.2",
