@@ -78,3 +78,47 @@ func TestGetInt(t *testing.T) {
 		t.Error("Unexpected value:", value)
 	}
 }
+
+func TestGetInterval(t *testing.T) {
+	os.Setenv("TEST_INTERVAL", "3s200ms")
+	defer os.Unsetenv("TEST_INTERVAL")
+	os.Setenv("TEST_INVALID", "xabc")
+	defer os.Unsetenv("TEST_INVALID")
+
+	value := GetInterval("TEST_INTERVAL", "")
+	if value.Seconds() != 3.2 {
+		t.Error("Unexpected duration:", value)
+	}
+
+	value = GetInterval("TEST_INVALID", "")
+	if value != DefaultInterval {
+		t.Error("Unexpected duration:", value)
+	}
+
+	value = GetInterval("TEST_DEFAULT", "")
+	if value != DefaultInterval {
+		t.Error("Unexpected default duration:", value)
+	}
+}
+
+func TestGetTimeout(t *testing.T) {
+	os.Setenv("TEST_TIMEOUT", "4s150ms")
+	defer os.Unsetenv("TEST_DURATION")
+	os.Setenv("TEST_INVALID", "xabc")
+	defer os.Unsetenv("TEST_INVALID")
+
+	value := GetTimeout("TEST_TIMEOUT", "")
+	if value.Seconds() != 4.15 {
+		t.Error("Unexpected duration:", value)
+	}
+
+	value = GetTimeout("TEST_INVALID", "")
+	if value != DefaultTimeout {
+		t.Error("Unexpected duration:", value)
+	}
+
+	value = GetTimeout("TEST_DEFAULT", "")
+	if value != DefaultTimeout {
+		t.Error("Unexpected default duration:", value)
+	}
+}
