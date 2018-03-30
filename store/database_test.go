@@ -24,7 +24,7 @@ func TestExistsAndMark(t *testing.T) {
 		Provider: mockProvider{
 			Name: "TestProvider",
 		},
-		Project: model.Project{
+		Project: &mockProject{
 			Name: "sample/repo",
 		},
 		Name: "test-tag",
@@ -34,7 +34,7 @@ func TestExistsAndMark(t *testing.T) {
 		Provider: mockProvider{
 			Name: "TestProvider",
 		},
-		Project: model.Project{
+		Project: &mockProject{
 			Name: "sample/alt",
 		},
 		Name: "1.0.0",
@@ -73,4 +73,16 @@ func (p mockProvider) GetName() string {
 
 func (p mockProvider) Parse(interface{}) model.GenericProject {
 	return nil
+}
+
+type mockProject struct {
+	Name string
+}
+
+func (p *mockProject) String() string {
+	return p.Name
+}
+
+func (p *mockProject) GetFilter() string {
+	return ".*"
 }

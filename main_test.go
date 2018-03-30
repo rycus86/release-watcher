@@ -82,6 +82,10 @@ func TestWaitForChanges(t *testing.T) {
 		"https://pypi.python.org/pypi/prometheus-flask-exporter/json",
 		"./testdata/pypi_releases.json",
 	)
+	registerResponderFromFile(
+		"https://data.services.jetbrains.com/products?code=GO",
+		"./testdata/jetbrains_releases.json",
+	)
 
 	configuration := model.Configuration{
 		Releases: map[string][]model.GenericProject{
@@ -92,7 +96,10 @@ func TestWaitForChanges(t *testing.T) {
 				&providers.DockerHubProject{Owner: "rycus86", Repo: "grafana"},
 			},
 			"pypi": {
-				&model.Project{Name: "prometheus-flask-exporter"},
+				&providers.PyPIProject{Name: "prometheus-flask-exporter"},
+			},
+			"jetbrains": {
+				&providers.JetBrainsProject{Name: "go", Alias: "GoLand"},
 			},
 		},
 	}
@@ -169,6 +176,26 @@ func TestWaitForChanges(t *testing.T) {
 		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
 	}
 	if !strings.Contains(notifier.callSend, "prometheus-flask-exporter:0.2.1") {
+		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
+	}
+
+	if !strings.Contains(store.callExists, "GoLand:2018.1 (181.4203.567)") {
+		t.Error("Unexpected calls to store.Exists:", store.callExists)
+	}
+	if !strings.Contains(store.callExists, "GoLand:2018.1 (181.4203.544 eap)") {
+		t.Error("Unexpected calls to store.Exists:", store.callExists)
+	}
+	if !strings.Contains(store.callMark, "GoLand:2018.1 (181.4203.567)") {
+		t.Error("Unexpected calls to store.Mark:", store.callMark)
+	}
+	if !strings.Contains(store.callMark, "GoLand:2018.1 (181.4203.544 eap)") {
+		t.Error("Unexpected calls to store.Mark:", store.callMark)
+	}
+
+	if strings.Contains(notifier.callSend, "GoLand:2018.1 (181.4203.544 eap)") {
+		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
+	}
+	if !strings.Contains(notifier.callSend, "GoLand:2018.1 (181.4203.567)") {
 		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
 	}
 }

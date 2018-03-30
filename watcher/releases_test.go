@@ -11,9 +11,7 @@ import (
 func TestWatchOnce(t *testing.T) {
 	w := &mockWatcher{}
 
-	project := model.Project{
-		Name: "mock/repo",
-	}
+	project := &mockProject{}
 
 	mr := []model.Release{
 		{
@@ -80,9 +78,7 @@ func TestWatchTicker(t *testing.T) {
 
 	w := &mockWatcher{}
 
-	project := model.Project{
-		Name: "mock/repo",
-	}
+	project := &mockProject{}
 
 	out := make(chan []model.Release, 1)
 	done := make(chan struct{})
@@ -121,9 +117,7 @@ func TestNoReleasesOnErrors(t *testing.T) {
 		Error: errors.New("Test Error"),
 	}
 
-	project := model.Project{
-		Name: "mock/repo",
-	}
+	project := &mockProject{}
 
 	out := make(chan []model.Release, 1)
 	done := make(chan struct{})
@@ -167,4 +161,14 @@ func (m *mockWatcher) Initialize() {}
 
 func (m *mockWatcher) Parse(interface{}) model.GenericProject {
 	return nil
+}
+
+type mockProject struct{}
+
+func (p *mockProject) String() string {
+	return "mock/repo"
+}
+
+func (p *mockProject) GetFilter() string {
+	return ".*"
 }

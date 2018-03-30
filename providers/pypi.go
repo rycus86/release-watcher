@@ -20,6 +20,24 @@ type pypiResponse struct {
 	} `json:"releases"`
 }
 
+type PyPIProject struct {
+	Name string
+
+	Filter string
+}
+
+func (p PyPIProject) GetFilter() string {
+	if p.Filter != "" {
+		return p.Filter
+	}
+
+	return model.DefaultFilterPatter
+}
+
+func (p PyPIProject) String() string {
+	return p.Name
+}
+
 func (provider *PyPIProvider) Initialize() {
 	provider.client = &http.Client{
 		Timeout: env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/pypi"),
@@ -33,7 +51,7 @@ func (provider *PyPIProvider) GetName() string {
 }
 
 func (provider *PyPIProvider) Parse(input interface{}) model.GenericProject {
-	var project model.Project
+	var project PyPIProject
 
 	err := mapstructure.Decode(input, &project)
 	if err != nil {
@@ -46,7 +64,7 @@ func (provider *PyPIProvider) Parse(input interface{}) model.GenericProject {
 func (provider *PyPIProvider) FetchReleases(p model.GenericProject) ([]model.Release, error) {
 	var releases []model.Release
 
-	project := p.(*model.Project)
+	project := p.(*PyPIProject)
 
 	apiUrl := fmt.Sprintf("https://pypi.python.org/pypi/%s/json", project.Name)
 	response, err := provider.client.Get(apiUrl)
@@ -62,22 +80,25 @@ func (provider *PyPIProvider) FetchReleases(p model.GenericProject) ([]model.Rel
 	}
 
 	for version, items := range apiResponse.Releases {
-		for _, release := range items {
-			published, err := time.Parse("2006-01-02T15:04:05", release.UploadTime)
-			if err != nil {
-				published = time.Now()
-			}
-
-			releases = append(releases, model.Release{
-				Name: version,
-				URL:  fmt.Sprintf("https://pypi.python.org/pypi/%s/%s", project.Name, version),
-				Date: published,
-
-				Provider: provider,
-				Project:  project,
-			})
-
+		if len(items) == 0 {
+			continue
 		}
+
+		release := items[0]
+
+		published, err := time.Parse("2006-01-02T15:04:05", release.UploadTime)
+		if err != nil {
+			published = time.Now()
+		}
+
+		releases = append(releases, model.Release{
+			Name: version,
+			URL:  fmt.Sprintf("https://pypi.python.org/pypi/%s/%s", project.Name, version),
+			Date: published,
+
+			Provider: provider,
+			Project:  project,
+		})
 	}
 
 	return releases, nil

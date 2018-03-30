@@ -31,11 +31,10 @@ type jetBrainsResponse struct {
 }
 
 type JetBrainsProject struct {
-	model.Project
+	Name  string
+	Alias string
 
-	Name   string
 	Filter string
-	Alias  string
 }
 
 func (p JetBrainsProject) String() string {

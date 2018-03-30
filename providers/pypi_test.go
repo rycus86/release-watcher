@@ -1,7 +1,6 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/watcher"
 	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
@@ -27,7 +26,7 @@ func TestFetchPyPIReleases(t *testing.T) {
 		client: &http.Client{},
 	}
 
-	releases, err := provider.FetchReleases(&model.Project{Name: "prometheus-flask-exporter"})
+	releases, err := provider.FetchReleases(&PyPIProject{Name: "prometheus-flask-exporter"})
 	if err != nil {
 		t.Errorf("Failed to fetch releases: %s", err)
 	}

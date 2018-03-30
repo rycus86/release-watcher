@@ -25,10 +25,18 @@ type dockerHubTagsResponse struct {
 }
 
 type DockerHubProject struct {
-	model.Project
-
 	Owner string
 	Repo  string
+
+	Filter string
+}
+
+func (p DockerHubProject) GetFilter() string {
+	if p.Filter != "" {
+		return p.Filter
+	}
+
+	return model.DefaultFilterPatter
 }
 
 func (p DockerHubProject) String() string {

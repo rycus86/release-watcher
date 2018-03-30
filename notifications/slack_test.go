@@ -54,9 +54,7 @@ func TestSendNotification(t *testing.T) {
 	defer manager.Close()
 
 	release := model.Release{
-		Project: model.Project{
-			Name: "test/repo",
-		},
+		Project: &mockProject{},
 
 		Name: "0.1.2",
 	}
@@ -72,9 +70,7 @@ func TestDoesNotSendWithoutWebhookUrl(t *testing.T) {
 	defer manager.Close()
 
 	release := model.Release{
-		Project: model.Project{
-			Name: "test/repo",
-		},
+		Project: &mockProject{},
 
 		Name: "0.1.2",
 	}
@@ -83,4 +79,14 @@ func TestDoesNotSendWithoutWebhookUrl(t *testing.T) {
 	if err == nil {
 		t.Error("Expected to fail")
 	}
+}
+
+type mockProject struct{}
+
+func (p *mockProject) String() string {
+	return "test/repo"
+}
+
+func (p *mockProject) GetFilter() string {
+	return ".*"
 }

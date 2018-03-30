@@ -14,10 +14,18 @@ type GitHubProvider struct {
 }
 
 type GitHubProject struct {
-	model.Project
-
 	Owner string
 	Repo  string
+
+	Filter string
+}
+
+func (p GitHubProject) GetFilter() string {
+	if p.Filter != "" {
+		return p.Filter
+	}
+
+	return model.DefaultFilterPatter
 }
 
 func (p GitHubProject) String() string {
