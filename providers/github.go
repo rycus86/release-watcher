@@ -7,6 +7,8 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/transport"
+	"net/http"
 )
 
 type GitHubProvider struct {
@@ -37,15 +39,19 @@ func (provider *GitHubProvider) Initialize() {
 	password := env.Lookup("GITHUB_PASSWORD", "/var/secrets/github", "")
 
 	if username != "" && password != "" {
-		transport := github.BasicAuthTransport{
+		authenticatedTransport := github.BasicAuthTransport{
 			Username: username,
 			Password: password,
+
+			Transport: &transport.HttpTransportWithUserAgent{},
 		}
 
-		provider.client = github.NewClient(transport.Client())
+		provider.client = github.NewClient(authenticatedTransport.Client())
 
 	} else {
-		provider.client = github.NewClient(nil)
+		provider.client = github.NewClient(&http.Client{
+			Transport: &transport.HttpTransportWithUserAgent{},
+		})
 
 	}
 

@@ -6,6 +6,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/transport"
 	"net/http"
 	"time"
 )
@@ -49,7 +50,8 @@ func (p DockerHubProject) String() string {
 
 func (provider *DockerHubProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: env.GetTimeout("HTTP_TIMEOUT", configPath),
+		Timeout:   env.GetTimeout("HTTP_TIMEOUT", configPath),
+		Transport: &transport.HttpTransportWithUserAgent{},
 	}
 	provider.pageSize = env.GetInt("PAGE_SIZE", configPath, 50)
 

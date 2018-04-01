@@ -7,6 +7,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/transport"
 	"net/http"
 	"strings"
 	"time"
@@ -55,7 +56,8 @@ func (p JetBrainsProject) GetFilter() string {
 
 func (provider *JetBrainsProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout: env.GetTimeout("HTTP_TIMEOUT", configPath),
+		Timeout:   env.GetTimeout("HTTP_TIMEOUT", configPath),
+		Transport: &transport.HttpTransportWithUserAgent{},
 	}
 
 	RegisterProvider(provider)

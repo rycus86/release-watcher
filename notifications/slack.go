@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/transport"
 	"net/http"
 )
 
@@ -26,7 +27,8 @@ func (m *SlackNotificationManager) initialize() {
 	m.iconUrl = env.Lookup("SLACK_ICON_URL", "/var/secrets/slack", "")
 
 	m.httpClient = &http.Client{
-		Timeout: env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/slack"),
+		Timeout:   env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/slack"),
+		Transport: &transport.HttpTransportWithUserAgent{},
 	}
 }
 

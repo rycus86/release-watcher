@@ -3,6 +3,7 @@ package notifications
 import (
 	"encoding/json"
 	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/transport"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -34,6 +35,10 @@ func TestSendNotification(t *testing.T) {
 		}
 		if icon, ok := payload["icon_url"]; !ok || icon != "http://slack.icon" {
 			t.Error("Unexpected icon URL:", icon)
+		}
+
+		if r.UserAgent() != transport.DefaultUserAgent {
+			t.Error("Unexpected User-Agent:", r.UserAgent())
 		}
 
 		w.WriteHeader(200)
