@@ -56,7 +56,7 @@ func (p JetBrainsProject) GetFilter() string {
 
 func (provider *JetBrainsProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout:   env.GetTimeout("HTTP_TIMEOUT", configPath),
+		Timeout:   env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/jetbrains"),
 		Transport: &transport.HttpTransportWithUserAgent{},
 	}
 

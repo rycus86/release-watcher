@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/providers"
 	"gopkg.in/yaml.v2"
@@ -42,6 +43,10 @@ func ParseConfigurationFile(path string) (*model.Configuration, error) {
 
 			configuration.Releases[providerName] = append(configuration.Releases[providerName], parsed)
 		}
+	}
+
+	if len(configuration.Releases) == 0 {
+		return nil, errors.New("No projects found in the configuration file")
 	}
 
 	return &configuration, nil

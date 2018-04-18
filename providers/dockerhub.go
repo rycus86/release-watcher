@@ -11,8 +11,6 @@ import (
 	"time"
 )
 
-const configPath = "/var/secrets/dockerhub"
-
 type DockerHubProvider struct {
 	client   *http.Client
 	pageSize int
@@ -50,10 +48,10 @@ func (p DockerHubProject) String() string {
 
 func (provider *DockerHubProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout:   env.GetTimeout("HTTP_TIMEOUT", configPath),
+		Timeout:   env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/dockerhub"),
 		Transport: &transport.HttpTransportWithUserAgent{},
 	}
-	provider.pageSize = env.GetInt("PAGE_SIZE", configPath, 50)
+	provider.pageSize = env.GetInt("PAGE_SIZE", "/var/secrets/dockerhub", 50)
 
 	RegisterProvider(provider)
 }
