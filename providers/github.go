@@ -89,8 +89,13 @@ func (provider *GitHubProvider) FetchReleases(p model.GenericProject) ([]model.R
 	}
 
 	for _, release := range ghReleases {
+		name := release.GetName()
+		if name == "" {
+			name = release.GetTagName()
+		}
+
 		releases = append(releases, model.Release{
-			Name: release.GetName(),
+			Name: name,
 			URL:  release.GetHTMLURL(),
 			Date: release.GetPublishedAt().Time,
 
