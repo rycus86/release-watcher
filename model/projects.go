@@ -1,7 +1,7 @@
 package model
 
 const (
-	DefaultFilterPatter = "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+	DefaultFilterPattern = "^[0-9]+\\.[0-9]+\\.[0-9]+$"
 )
 
 type GenericProject interface {

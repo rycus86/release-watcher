@@ -9,4 +9,6 @@ type Release struct {
 	Name string
 	Date time.Time
 	URL  string
+
+	Webhooks []string
 }

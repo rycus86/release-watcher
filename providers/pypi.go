@@ -32,7 +32,7 @@ func (p PyPIProject) GetFilter() string {
 		return p.Filter
 	}
 
-	return model.DefaultFilterPatter
+	return model.DefaultFilterPattern
 }
 
 func (p PyPIProject) String() string {

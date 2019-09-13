@@ -8,6 +8,7 @@ import (
 	"github.com/rycus86/release-watcher/providers"
 	"github.com/rycus86/release-watcher/store"
 	"github.com/rycus86/release-watcher/watcher"
+	"github.com/rycus86/release-watcher/webhooks"
 	"log"
 	"os"
 	"os/signal"
@@ -45,7 +46,12 @@ func WatchReleases(provider model.Provider, project model.GenericProject) {
 	watcher.WatchReleases(rw, project, releaseChannel, shutdownChannel)
 }
 
-func WaitForChanges(db model.Store, notifier notifications.NotificationManager, reloadHandler func()) {
+func WaitForChanges(
+	db model.Store,
+	notifier notifications.NotificationManager,
+	webhookSender webhooks.WebhookSender,
+	reloadHandler func()) {
+
 	for {
 		select {
 		case releases := <-releaseChannel:
@@ -70,6 +76,8 @@ func WaitForChanges(db model.Store, notifier notifications.NotificationManager, 
 				if err := db.Mark(release); err != nil {
 					log.Println("Failed to save the new version:", err)
 				}
+
+				webhookSender.Send(&release)
 
 				if !hasNewRelease {
 					hasNewRelease = true
@@ -120,6 +128,8 @@ func main() {
 	notifier := notifications.NewNotificationManager()
 	defer notifier.Close()
 
+	webhookSender := webhooks.NewWebhookSender()
+
 	reloadHandler := func() {
 		close(shutdownChannel)
 
@@ -136,7 +146,7 @@ func main() {
 		len(providers.GetProviders()), "providers",
 	)
 
-	WaitForChanges(db, notifier, reloadHandler)
+	WaitForChanges(db, notifier, webhookSender, reloadHandler)
 
 	log.Println("Application exiting")
 }

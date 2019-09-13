@@ -113,8 +113,9 @@ func TestWaitForChanges(t *testing.T) {
 
 	store := mockStore{}
 	notifier := mockNotifier{}
+	webhookSender := mockWebhookSender{}
 
-	WaitForChanges(&store, &notifier, nil)
+	WaitForChanges(&store, &notifier, &webhookSender, nil)
 
 	if !strings.Contains(store.callExists, "docker/docker-py:3.1.3") {
 		t.Error("Unexpected calls to store.Exists:", store.callExists)
@@ -134,6 +135,13 @@ func TestWaitForChanges(t *testing.T) {
 	}
 	if !strings.Contains(notifier.callSend, "docker/docker-py:3.1.3") {
 		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
+	}
+
+	if !strings.Contains(webhookSender.callSend, "docker/docker-py:2.7.0") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
+	if !strings.Contains(webhookSender.callSend, "docker/docker-py:3.1.3") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
 	}
 
 	if strings.Contains(store.callExists, "rycus86/grafana:latest") {
@@ -159,6 +167,13 @@ func TestWaitForChanges(t *testing.T) {
 		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
 	}
 
+	if !strings.Contains(webhookSender.callSend, "rycus86/grafana:4.6.1") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
+	if !strings.Contains(webhookSender.callSend, "rycus86/grafana:5.0.2") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
+
 	if !strings.Contains(store.callExists, "prometheus-flask-exporter:0.2.1") {
 		t.Error("Unexpected calls to store.Exists:", store.callExists)
 	}
@@ -177,6 +192,13 @@ func TestWaitForChanges(t *testing.T) {
 	}
 	if !strings.Contains(notifier.callSend, "prometheus-flask-exporter:0.2.1") {
 		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
+	}
+
+	if !strings.Contains(webhookSender.callSend, "prometheus-flask-exporter:0.1.0") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
+	if !strings.Contains(webhookSender.callSend, "prometheus-flask-exporter:0.2.1") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
 	}
 
 	if !strings.Contains(store.callExists, "GoLand:2018.1 (181.4203.567)") {
@@ -198,6 +220,13 @@ func TestWaitForChanges(t *testing.T) {
 	if !strings.Contains(notifier.callSend, "GoLand:2018.1 (181.4203.567)") {
 		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
 	}
+
+	if !strings.Contains(webhookSender.callSend, "GoLand:2018.1 (181.4203.544 eap)") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
+	if !strings.Contains(webhookSender.callSend, "GoLand:2018.1 (181.4203.567)") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
 }
 
 func TestReload(t *testing.T) {
@@ -212,13 +241,14 @@ func TestReload(t *testing.T) {
 
 	store := mockStore{}
 	notifier := mockNotifier{}
+	webhookSender := mockWebhookSender{}
 
 	reloaded := 0
 	reloader := func() {
 		reloaded++
 	}
 
-	WaitForChanges(&store, &notifier, reloader)
+	WaitForChanges(&store, &notifier, &webhookSender, reloader)
 
 	if reloaded != 2 {
 		t.Error("Unexpected number of reloads:", reloaded)
@@ -280,4 +310,12 @@ func (n *mockNotifier) SendNotification(r *model.Release) error {
 }
 
 func (n *mockNotifier) Close() {
+}
+
+type mockWebhookSender struct {
+	callSend string
+}
+
+func (s *mockWebhookSender) Send(r *model.Release) {
+	s.callSend = s.callSend + "," + fmt.Sprintf("%s:%s", r.Project.String(), r.Name)
 }

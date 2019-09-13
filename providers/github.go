@@ -27,7 +27,7 @@ func (p GitHubProject) GetFilter() string {
 		return p.Filter
 	}
 
-	return model.DefaultFilterPatter
+	return model.DefaultFilterPattern
 }
 
 func (p GitHubProject) String() string {

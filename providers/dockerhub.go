@@ -35,7 +35,7 @@ func (p DockerHubProject) GetFilter() string {
 		return p.Filter
 	}
 
-	return model.DefaultFilterPatter
+	return model.DefaultFilterPattern
 }
 
 func (p DockerHubProject) String() string {
