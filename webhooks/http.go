@@ -47,12 +47,24 @@ func (s *HttpWebhookSender) Send(release *model.Release) {
 	}
 
 	for _, webhookTargetUrl := range release.Webhooks {
-		go sendMessage(webhookTargetUrl, s.client, body)
+		go s.sendMessage(webhookTargetUrl, bytes.NewReader(body.Bytes()))
 	}
 }
 
-func sendMessage(targetUrl string, client *http.Client, jsonBody io.Reader) {
-	if response, err := client.Post(targetUrl, "application/json", jsonBody); err != nil {
+func (s *HttpWebhookSender) sendMessage(targetUrl string, jsonBody io.Reader) {
+	request, err := http.NewRequest("POST", targetUrl, jsonBody)
+	if err != nil {
+		fmt.Println("Failed to prepare a request to", targetUrl, ":", err)
+		return
+	}
+
+	request.Header.Add("Content-Type", "application/json")
+
+	if key := s.authorizationKey; key != "" {
+		request.Header.Add("Webhook-Auth-Token", key)
+	}
+
+	if response, err := s.client.Do(request); err != nil {
 		fmt.Println("Failed to POST a webhook to", targetUrl, ":", err)
 	} else {
 		defer response.Body.Close()
