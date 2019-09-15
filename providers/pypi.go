@@ -22,17 +22,9 @@ type pypiResponse struct {
 }
 
 type PyPIProject struct {
+	model.BaseProject `mapstructure:",squash"`
+
 	Name string
-
-	Filter string
-}
-
-func (p PyPIProject) GetFilter() string {
-	if p.Filter != "" {
-		return p.Filter
-	}
-
-	return model.DefaultFilterPattern
 }
 
 func (p PyPIProject) String() string {

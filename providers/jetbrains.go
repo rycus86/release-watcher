@@ -32,10 +32,10 @@ type jetBrainsResponse struct {
 }
 
 type JetBrainsProject struct {
+	model.BaseProject `mapstructure:",squash"`
+
 	Name  string
 	Alias string
-
-	Filter string
 }
 
 func (p JetBrainsProject) String() string {

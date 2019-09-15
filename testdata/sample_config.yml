@@ -2,6 +2,9 @@ releases:
   github:
     - owner: docker
       repo: docker-py
+      filter: '[2-9]+\.[0-9]+\.[0-9]+'
+      webhooks:
+        - http://example.local/webhooks/test
 
   dockerhub:
     - repo: nginx

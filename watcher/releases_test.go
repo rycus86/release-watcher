@@ -172,3 +172,7 @@ func (p *mockProject) String() string {
 func (p *mockProject) GetFilter() string {
 	return ".*"
 }
+
+func (p *mockProject) GetWebhooks() []string {
+	return nil
+}

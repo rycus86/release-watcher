@@ -28,7 +28,7 @@ func NewHttpWebhookSender() *HttpWebhookSender {
 }
 
 func (s *HttpWebhookSender) Send(release *model.Release) {
-	if release.Webhooks == nil {
+	if release.Project.GetWebhooks() == nil {
 		return
 	}
 
@@ -46,7 +46,7 @@ func (s *HttpWebhookSender) Send(release *model.Release) {
 		return
 	}
 
-	for _, webhookTargetUrl := range release.Webhooks {
+	for _, webhookTargetUrl := range release.Project.GetWebhooks() {
 		go s.sendMessage(webhookTargetUrl, bytes.NewReader(body.Bytes()))
 	}
 }
@@ -70,7 +70,7 @@ func (s *HttpWebhookSender) sendMessage(targetUrl string, jsonBody io.Reader) {
 		defer response.Body.Close()
 
 		if response.StatusCode >= 400 {
-			fmt.Println("Failed to POST a webhook to", targetUrl, ":", err)
+			fmt.Println("Failed to POST a webhook to", targetUrl, ":", response.Status)
 		} else {
 			fmt.Println("Webhook successfully POSTed to", targetUrl)
 		}

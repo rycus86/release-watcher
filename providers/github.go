@@ -16,18 +16,10 @@ type GitHubProvider struct {
 }
 
 type GitHubProject struct {
+	model.BaseProject `mapstructure:",squash"`
+
 	Owner string
 	Repo  string
-
-	Filter string
-}
-
-func (p GitHubProject) GetFilter() string {
-	if p.Filter != "" {
-		return p.Filter
-	}
-
-	return model.DefaultFilterPattern
 }
 
 func (p GitHubProject) String() string {

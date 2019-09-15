@@ -28,6 +28,14 @@ func TestParseConfig(t *testing.T) {
 				t.Error("Unexpected project:", projects[0])
 			}
 
+			if filter := projects[0].GetFilter(); filter != "[2-9]+\\.[0-9]+\\.[0-9]+" {
+				t.Error("Unexpected filter:", filter)
+			}
+
+			if wh := projects[0].GetWebhooks(); len(wh) != 1 || wh[0] != "http://example.local/webhooks/test" {
+				t.Error("Unexpected webhooks configuration:", wh)
+			}
+
 		} else if provider == "dockerhub" {
 			if len(projects) != 2 {
 				t.Error("Unexpected number of projects")

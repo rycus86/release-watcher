@@ -24,18 +24,10 @@ type dockerHubTagsResponse struct {
 }
 
 type DockerHubProject struct {
+	model.BaseProject `mapstructure:",squash"`
+
 	Owner string
 	Repo  string
-
-	Filter string
-}
-
-func (p DockerHubProject) GetFilter() string {
-	if p.Filter != "" {
-		return p.Filter
-	}
-
-	return model.DefaultFilterPattern
 }
 
 func (p DockerHubProject) String() string {

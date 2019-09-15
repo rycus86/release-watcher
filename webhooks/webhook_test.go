@@ -59,25 +59,29 @@ func TestHttpWebhookSender(t *testing.T) {
 
 	sender.Send(&model.Release{
 		Provider: mockProvider{Name: "test.provider"},
-		Project:  &mockProject{Name: "test.project"},
-		Name:     "Example 1",
-		Date:     time.Now(),
-		URL:      "https://example.local/release/example/1",
-		Webhooks: []string{
-			server.URL + "/webhooks/one",
-			server.URL + "/webhooks/two",
+		Project: &mockProject{
+			Name: "test.project",
+			Webhooks: []string{
+				server.URL + "/webhooks/one",
+				server.URL + "/webhooks/two",
+			},
 		},
+		Name: "Example 1",
+		Date: time.Now(),
+		URL:  "https://example.local/release/example/1",
 	})
 
 	sender.Send(&model.Release{
 		Provider: mockProvider{Name: "test.provider"},
-		Project:  &mockProject{Name: "test.project"},
-		Name:     "Example 2",
-		Date:     time.Now(),
-		URL:      "https://example.local/release/example/2",
-		Webhooks: []string{
-			server.URL + "/webhooks/three",
+		Project: &mockProject{
+			Name: "test.project",
+			Webhooks: []string{
+				server.URL + "/webhooks/three",
+			},
 		},
+		Name: "Example 2",
+		Date: time.Now(),
+		URL:  "https://example.local/release/example/2",
 	})
 
 	time.Sleep(20 * time.Millisecond) // hack: give the goroutines some time
@@ -104,7 +108,7 @@ func TestHttpWebhookSenderWithAuthToken(t *testing.T) {
 			t.Error("Invalid or missing auth token in", r.Header)
 		}
 
-		if r.URL.Path != "/webhooks/one"{
+		if r.URL.Path != "/webhooks/one" {
 			t.Error("Unexpected request:", r.URL)
 		}
 		if payload.Name != "Example 1" {
@@ -132,13 +136,15 @@ func TestHttpWebhookSenderWithAuthToken(t *testing.T) {
 
 	sender.Send(&model.Release{
 		Provider: mockProvider{Name: "test.provider"},
-		Project:  &mockProject{Name: "test.project"},
-		Name:     "Example 1",
-		Date:     time.Now(),
-		URL:      "https://example.local/release/example/1",
-		Webhooks: []string{
-			server.URL + "/webhooks/one",
+		Project: &mockProject{
+			Name: "test.project",
+			Webhooks: []string{
+				server.URL + "/webhooks/one",
+			},
 		},
+		Name: "Example 1",
+		Date: time.Now(),
+		URL:  "https://example.local/release/example/1",
 	})
 
 	time.Sleep(20 * time.Millisecond) // hack: give the goroutines some time
@@ -165,7 +171,8 @@ func (p mockProvider) Parse(interface{}) model.GenericProject {
 }
 
 type mockProject struct {
-	Name string
+	Name     string
+	Webhooks []string
 }
 
 func (p *mockProject) String() string {
@@ -174,4 +181,8 @@ func (p *mockProject) String() string {
 
 func (p *mockProject) GetFilter() string {
 	return ".*"
+}
+
+func (p *mockProject) GetWebhooks() []string {
+	return p.Webhooks
 }
