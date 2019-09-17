@@ -1,6 +1,6 @@
 language: go
 go:
-  - "1.10"
+  - "1.13"
 
 install: skip
 
@@ -34,6 +34,7 @@ jobs:
             .
       after_success:
         - |
+          echo ${DOCKER_PASSWORD} | docker login --username "rycus86" --password-stdin
           docker login -u="rycus86" -p="$DOCKER_PASSWORD"
           if [ "$TRAVIS_BRANCH" == "master" ]; then
               docker tag es-cleaner:$DOCKER_TAG rycus86/release-watcher:$DOCKER_TAG
@@ -63,7 +64,7 @@ jobs:
       sudo: required
       script:
         - |
-        - docker login -u="rycus86" -p="${DOCKER_PASSWORD}"
+        - echo ${DOCKER_PASSWORD} | docker login --username "rycus86" --password-stdin
         - curl -fsSL https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64 > ./manifest-tool
         - chmod +x ./manifest-tool
         - ./manifest-tool push from-spec manifest.yml
