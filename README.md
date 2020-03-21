@@ -72,8 +72,9 @@ This provider accepts some optional configuration parameters, either from enviro
 
 | Key | Description | Default |
 | --- | ----------- | ------- |
-| `GITHUB_USERNAME` | The GitHub username if you wish to make authenticated API calls, to get better rate-limiting, for example | - |
-| `GITHUB_PASSWORD` | The GitHub password for authenticated API calls | - |
+| `GITHUB_TOKEN` | The GitHub OAuth token if you wish to make authenticated API calls, to get better rate-limiting. ([token generation](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) - no scopes are needed) | - |
+| `GITHUB_USERNAME` | The GitHub username for basic authentication instead of Oauth with token | - |
+| `GITHUB_PASSWORD` | The GitHub password for the username | - |
 | `HTTP_TIMEOUT` | The HTTP timeout for API calls | `30s` |
 
 ### Docker Hub
