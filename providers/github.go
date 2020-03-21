@@ -3,12 +3,15 @@ package providers
 import (
 	"context"
 	"fmt"
+	"net/http"
+
+	"golang.org/x/oauth2"
+
 	"github.com/google/go-github/github"
 	"github.com/mitchellh/mapstructure"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/transport"
-	"net/http"
 )
 
 type GitHubProvider struct {
@@ -27,10 +30,18 @@ func (p GitHubProject) String() string {
 }
 
 func (provider *GitHubProvider) Initialize() {
+	token := env.Lookup("GITHUB_TOKEN", "/var/secrets/github", "")
 	username := env.Lookup("GITHUB_USERNAME", "/var/secrets/github", "")
 	password := env.Lookup("GITHUB_PASSWORD", "/var/secrets/github", "")
 
-	if username != "" && password != "" {
+	if token != "" {
+		ctx := context.Background()
+		tokenSource := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
+		oauthClient := oauth2.NewClient(ctx, tokenSource)
+
+		provider.client = github.NewClient(oauthClient)
+
+	} else if username != "" && password != "" {
 		authenticatedTransport := github.BasicAuthTransport{
 			Username: username,
 			Password: password,
