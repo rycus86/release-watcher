@@ -2,12 +2,13 @@ package webhooks
 
 import (
 	"encoding/json"
-	"github.com/rycus86/release-watcher/model"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/rycus86/release-watcher/model"
 )
 
 func TestHttpWebhookSender(t *testing.T) {

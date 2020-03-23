@@ -3,12 +3,13 @@ package providers
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"time"
+
 	"github.com/mitchellh/mapstructure"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/transport"
-	"net/http"
-	"time"
 )
 
 type PyPIProvider struct {

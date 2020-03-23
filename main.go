@@ -1,6 +1,12 @@
 package main
 
 import (
+	"log"
+	"os"
+	"os/signal"
+	"regexp"
+	"syscall"
+
 	"github.com/rycus86/release-watcher/config"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
@@ -9,11 +15,6 @@ import (
 	"github.com/rycus86/release-watcher/store"
 	"github.com/rycus86/release-watcher/watcher"
 	"github.com/rycus86/release-watcher/webhooks"
-	"log"
-	"os"
-	"os/signal"
-	"regexp"
-	"syscall"
 )
 
 var (

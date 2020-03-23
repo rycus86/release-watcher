@@ -2,10 +2,11 @@ package watcher
 
 import (
 	"errors"
-	"github.com/rycus86/release-watcher/model"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/rycus86/release-watcher/model"
 )
 
 func TestWatchOnce(t *testing.T) {

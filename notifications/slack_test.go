@@ -2,12 +2,13 @@ package notifications
 
 import (
 	"encoding/json"
-	"github.com/rycus86/release-watcher/model"
-	"github.com/rycus86/release-watcher/transport"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
+
+	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/transport"
 )
 
 func TestSendNotification(t *testing.T) {

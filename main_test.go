@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/rycus86/release-watcher/model"
-	"github.com/rycus86/release-watcher/providers"
-	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"os"
 	"strings"
 	"syscall"
 	"testing"
 	"time"
+
+	"github.com/rycus86/release-watcher/model"
+	"github.com/rycus86/release-watcher/providers"
+	"gopkg.in/jarcoal/httpmock.v1"
 )
 
 func TestStartWatchers(t *testing.T) {
