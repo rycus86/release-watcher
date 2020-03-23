@@ -1,8 +1,9 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/model"
 	"testing"
+
+	"github.com/rycus86/release-watcher/model"
 )
 
 func TestRegisterProvider(t *testing.T) {

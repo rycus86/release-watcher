@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+	"strings"
+	"time"
+
 	"github.com/mitchellh/mapstructure"
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/transport"
-	"net/http"
-	"strings"
-	"time"
 )
 
 type JetBrainsProvider struct {

@@ -1,9 +1,10 @@
 package providers
 
 import (
-	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"testing"
+
+	"gopkg.in/jarcoal/httpmock.v1"
 )
 
 func TestFetchGitHubReleases(t *testing.T) {

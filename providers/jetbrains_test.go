@@ -1,10 +1,11 @@
 package providers
 
 import (
-	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"net/http"
 	"testing"
+
+	"gopkg.in/jarcoal/httpmock.v1"
 )
 
 func TestFetchJetBrainsReleases(t *testing.T) {

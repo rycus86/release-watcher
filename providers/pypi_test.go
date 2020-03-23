@@ -1,11 +1,12 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/watcher"
-	"gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"net/http"
 	"testing"
+
+	"github.com/rycus86/release-watcher/watcher"
+	"gopkg.in/jarcoal/httpmock.v1"
 )
 
 func TestFetchPyPIReleases(t *testing.T) {

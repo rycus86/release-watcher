@@ -1,11 +1,12 @@
 package watcher
 
 import (
-	"github.com/rycus86/release-watcher/env"
-	"github.com/rycus86/release-watcher/model"
 	"log"
 	"sort"
 	"time"
+
+	"github.com/rycus86/release-watcher/env"
+	"github.com/rycus86/release-watcher/model"
 )
 
 type ReleaseWatcher interface {

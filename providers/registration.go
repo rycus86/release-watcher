@@ -1,8 +1,9 @@
 package providers
 
 import (
-	"github.com/rycus86/release-watcher/model"
 	"strings"
+
+	"github.com/rycus86/release-watcher/model"
 )
 
 var providers []model.Provider

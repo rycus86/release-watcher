@@ -1,8 +1,9 @@
 package config
 
 import (
-	"github.com/rycus86/release-watcher/providers"
 	"testing"
+
+	"github.com/rycus86/release-watcher/providers"
 )
 
 func TestParseConfig(t *testing.T) {

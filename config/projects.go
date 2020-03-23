@@ -2,11 +2,12 @@ package config
 
 import (
 	"errors"
+	"io/ioutil"
+	"log"
+
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/providers"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
-	"log"
 )
 
 func ParseConfigurationFile(path string) (*model.Configuration, error) {

@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+
 	"github.com/rycus86/release-watcher/env"
 	"github.com/rycus86/release-watcher/model"
 	"github.com/rycus86/release-watcher/transport"
-	"net/http"
 )
 
 type SlackNotificationManager struct {
