@@ -6,12 +6,12 @@ Currently supports fetching releases from:
 
 - [GitHub](https://github.com)
 - [Docker Hub](https://hub.docker.com)
-- [PyPI](TODO)
-- [JetBrains](TODO)
+- [PyPI](https://pypi.org)
+- [JetBrains](https://www.jetbrains.com)
 
 Currently supports notifications to:
 
-- [Slack](TODO)
+- [Slack](https://slack.com)
 
 The application periodically checks the target projects using their provider, and sends out a notificiation with some details about new releases when it finds them. Previously seen releases are kept in a [SQLite](TODO) database.
 
@@ -29,7 +29,7 @@ $ docker run -d --name release-watcher 				\
 	rycus86/release-watcher
 ```
 
-Alternatively, build with Go (tested on version 1.10), then execute:
+Alternatively, build with Go (tested on version 1.10, 1.14), then execute:
 
 ```shell
 $ export DATABASE_PATH=$PWD/releases.db
