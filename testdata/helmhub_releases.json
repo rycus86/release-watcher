@@ -1,0 +1,818 @@
+{
+  "data": [
+    {
+      "id": "argo/argo-0.7.2",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.7.2",
+        "app_version": "v2.6.1",
+        "created": "2020-03-19T18:56:27.428Z",
+        "digest": "5cbbca72cb3917426068619f42a59a54417a7fb4431634a1b6ef39b804fa0bfd",
+        "urls": ["argo-0.7.2.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.7.2/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.7.2/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.7.2" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.7.1",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.7.1",
+        "app_version": "v2.6.1",
+        "created": "2020-03-19T18:56:27.427Z",
+        "digest": "464353c341d43ba6c4a256423704752ad6eaf1c25342152dc2b27be749e7df7a",
+        "urls": ["argo-0.7.1.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.7.1/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.7.1/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.7.1" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.7.0",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.7.0",
+        "app_version": "v2.6.1",
+        "created": "2020-03-19T18:56:27.425Z",
+        "digest": "d78077d7531b7844a5e3d008654349559795567ad0951bf755f110dcc2db46f9",
+        "urls": ["argo-0.7.0.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.7.0/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.7.0/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.7.0" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.8",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.8",
+        "app_version": "v2.4.3",
+        "created": "2020-03-19T18:56:27.424Z",
+        "digest": "794313e143b2890206b7edbf9df0412a3cb8268bc854827d6327487642dc3287",
+        "urls": ["argo-0.6.8.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.8/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.8/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.8" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.7",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.7",
+        "app_version": "v2.4.3",
+        "created": "2020-03-19T18:56:27.422Z",
+        "digest": "991e429d6eb0c31757dc78939da93116ccb101ab1e2f031eb7f4abf50242ee1c",
+        "urls": ["argo-0.6.7.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.7/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.7/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.7" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.6",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.6",
+        "app_version": "v2.4.3",
+        "created": "2020-03-19T18:56:27.42Z",
+        "digest": "7a68be4c7660bc7f211e347c077e09323503118982d8d89e720a4c0bf93e4d4f",
+        "urls": ["argo-0.6.6.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.6/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.6/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.6" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.5",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.5",
+        "app_version": "v2.4.3",
+        "created": "2020-03-19T18:56:27.419Z",
+        "digest": "eb82d8f0ec94a9ade65be65043c01e861020953c47bc0536c712041171d391a5",
+        "urls": ["argo-0.6.5.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.5/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.5/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.5" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.4",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.4",
+        "app_version": "v2.4.3",
+        "created": "2020-03-19T18:56:27.418Z",
+        "digest": "6cb99e8e5ce0aa100ba4ec27f801b6879ad4157bdb1bf0a0f773c9828be4f45a",
+        "urls": ["argo-0.6.4.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.4/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.4/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.4" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.3",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.3",
+        "app_version": "v2.4.2",
+        "created": "2020-03-19T18:56:27.417Z",
+        "digest": "1a272543f2b2b69bf05f064f694552c66784bca716fb3dc5a8302b9a176b275d",
+        "urls": ["argo-0.6.3.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.3/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.3/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.3" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.2",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.2",
+        "app_version": "v2.4.2",
+        "created": "2020-03-19T18:56:27.416Z",
+        "digest": "768b18b6bb86e0c63d9e17563cee4ac0ab65b3ac8744182e987eca92b14fd898",
+        "urls": ["argo-0.6.2.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.2/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.2/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.2" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.6.1",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.6.1",
+        "app_version": "v2.4.2",
+        "created": "2020-03-19T18:56:27.415Z",
+        "digest": "2608a9e77b269d53a2c1038b41810938497d81ce1d85f3ff9c6274b82d6e304f",
+        "urls": ["argo-0.6.1.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.6.1/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.6.1/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.6.1" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.5.4",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.5.4",
+        "app_version": "v2.3.0",
+        "created": "2020-03-19T18:56:27.414Z",
+        "digest": "05cbb2419812b8da0f0f3149d343cab705b596282a3fa92664603a3611bc1fb7",
+        "urls": ["argo-0.5.4.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.5.4/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.5.4/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.5.4" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.5.3",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.5.3",
+        "app_version": "v2.3.0",
+        "created": "2020-03-19T18:56:27.412Z",
+        "digest": "747411b921c351795fc53928e0e464e697aa5bbf35d02b76ed90527af3c7678b",
+        "urls": ["argo-0.5.3.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.5.3/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.5.3/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.5.3" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.5.2",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.5.2",
+        "app_version": "v2.3.0",
+        "created": "2020-03-19T18:56:27.411Z",
+        "digest": "1d20e5c32c0f295b6df5abbb733b48b6ab34bead8c16dd63e4c4f6ccb155eafc",
+        "urls": ["argo-0.5.2.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.5.2/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.5.2/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.5.2" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.5.1",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.5.1",
+        "app_version": "v2.3.0",
+        "created": "2020-03-19T18:56:27.41Z",
+        "digest": "f6703b5ee03915d9e1184ddffb7a1bc88d3a025e68a61375d676ec3e2a67192e",
+        "urls": ["argo-0.5.1.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.5.1/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.5.1/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.5.1" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.5.0",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.5.0",
+        "app_version": "v2.3.0",
+        "created": "2020-03-19T18:56:27.407Z",
+        "digest": "675656b6269249a3028bd5d4d0d2d04dfbe6698a9ff11cda969f1c4a25c38d60",
+        "urls": ["argo-0.5.0.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.5.0/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.5.0/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.5.0" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.4.0",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.4.0",
+        "app_version": "v2.2.1",
+        "created": "2020-03-19T18:56:27.406Z",
+        "digest": "82040c2cf671d4dceda8c27b04623f94d4883069cbe612686a64a1eecedf7eda",
+        "urls": ["argo-0.4.0.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.4.0/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.4.0/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.4.0" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.3.1",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.3.1",
+        "app_version": "",
+        "created": "2020-03-19T18:56:27.404Z",
+        "digest": "91351dfac1ce2210e0fa8e532cb585f8af450cc7bb70314adb051241363f7db6",
+        "urls": ["argo-0.3.1.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.3.1/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.3.1/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.3.1" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.3.0",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.3.0",
+        "app_version": "",
+        "created": "2020-03-19T18:56:27.403Z",
+        "digest": "f88682348f4f2b470f1df840929a6a9ce584d8a499e0c0085a71371de9582275",
+        "urls": ["argo-0.3.0.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.3.0/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.3.0/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.3.0" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.2.1",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.2.1",
+        "app_version": "",
+        "created": "2020-03-19T18:56:27.402Z",
+        "digest": "eea1d669e5495c611aa6d51965fd8b7d71eac15382ab71ebbde73ca54af5a3fe",
+        "urls": ["argo-0.2.1.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.2.1/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.2.1/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.2.1" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.1.1",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.1.1",
+        "app_version": "",
+        "created": "2020-03-19T18:56:27.4Z",
+        "digest": "a0255641d6ae6bc533f5594003bf39f911ec35fc1198e6627ca84c93f3fd941f",
+        "urls": ["argo-0.1.1.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.1.1/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.1.1/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.1.1" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    },
+    {
+      "id": "argo/argo-0.1.0",
+      "type": "chartVersion",
+      "attributes": {
+        "version": "0.1.0",
+        "app_version": "",
+        "created": "2020-03-19T18:56:27.399Z",
+        "digest": "f7393a1c9e0a25f19692857a4a9d20ed0199243712cd9d3af2f44995724c1909",
+        "urls": ["argo-0.1.0.tgz"],
+        "readme": "/v1/assets/argo/argo/versions/0.1.0/README.md",
+        "values": "/v1/assets/argo/argo/versions/0.1.0/values.yaml"
+      },
+      "links": { "self": "/v1/charts/argo/argo/versions/0.1.0" },
+      "relationships": {
+        "chart": {
+          "data": {
+            "name": "argo",
+            "repo": {
+              "name": "argo",
+              "url": "https://argoproj.github.io/argo-helm"
+            },
+            "description": "A Helm chart for Argo Workflows",
+            "home": "https://github.com/argoproj/argo-helm",
+            "keywords": [],
+            "maintainers": [
+              { "name": "alexec" },
+              { "name": "alexmt" },
+              { "name": "jessesuen" },
+              { "name": "benjaminws" }
+            ],
+            "sources": [],
+            "icon": "/v1/assets/argo/argo/logo"
+          },
+          "links": { "self": "/v1/charts/argo/argo" }
+        }
+      }
+    }
+  ]
+}

@@ -6,12 +6,13 @@ Currently supports fetching releases from:
 
 - [GitHub](https://github.com)
 - [Docker Hub](https://hub.docker.com)
-- [PyPI](TODO)
-- [JetBrains](TODO)
+- [PyPI](https://pypi.org)
+- [JetBrains](https://www.jetbrains.com)
+- [Helm Hub](https://hub.helm.sh)
 
 Currently supports notifications to:
 
-- [Slack](TODO)
+- [Slack](https://slack.com)
 
 The application periodically checks the target projects using their provider, and sends out a notificiation with some details about new releases when it finds them. Previously seen releases are kept in a [SQLite](TODO) database.
 
@@ -29,7 +30,7 @@ $ docker run -d --name release-watcher 				\
 	rycus86/release-watcher
 ```
 
-Alternatively, build with Go (tested on version 1.10), then execute:
+Alternatively, build with Go (tested on version 1.10, 1.14), then execute:
 
 ```shell
 $ export DATABASE_PATH=$PWD/releases.db
@@ -58,6 +59,10 @@ releases:
   jetbrains:
     - name: go
       alias: GoLand
+
+  helmhub:
+    - repo: bitnami
+      chart: airflow
 ```
 
 The root `releases` holds mappings, keyed by the provider name, and the value being a list of project configurations. The available providers and their related configuration is listed below.
@@ -103,6 +108,16 @@ This provider accepts some optional configuration parameters, either from enviro
 The `jetbrains` provider looks for new releases for JetBrains applications. The configuration items need to have a `name` property, which is the application ID as JetBrains knows it. It could also include an `alias` property to display in the notifications instead of the ID.
 
 This provider accepts some optional configuration parameters, either from environment variables, or a key-value file at `/var/secrets/jetbrains` in `KEY=VALUE` format on each line.
+
+| Key | Description | Default |
+| --- | ----------- | ------- |
+| `HTTP_TIMEOUT` | The HTTP timeout for API calls | `30s` |
+
+### Helm Hub
+
+The `helmhub` provider looks for new Helm chart versions. The configuration items need to have a `repo` property and a `chart`.
+
+This provider accepts some optional configuration parameters, either from environment variables, or a key-value file at `/var/secrets/helmhub` in `KEY=VALUE` format on each line.
 
 | Key | Description | Default |
 | --- | ----------- | ------- |
