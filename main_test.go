@@ -87,6 +87,10 @@ func TestWaitForChanges(t *testing.T) {
 		"https://data.services.jetbrains.com/products?code=GO",
 		"./testdata/jetbrains_releases.json",
 	)
+	registerResponderFromFile(
+		"https://hub.helm.sh/api/chartsvc/v1/charts/argo/argo/versions",
+		"./testdata/helmhub_releases.json",
+	)
 
 	configuration := model.Configuration{
 		Releases: map[string][]model.GenericProject{
@@ -101,6 +105,9 @@ func TestWaitForChanges(t *testing.T) {
 			},
 			"jetbrains": {
 				&providers.JetBrainsProject{Name: "go", Alias: "GoLand"},
+			},
+			"helmhub": {
+				&providers.HelmHubProject{Repo: "argo", Chart: "argo"},
 			},
 		},
 	}
@@ -226,6 +233,33 @@ func TestWaitForChanges(t *testing.T) {
 		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
 	}
 	if !strings.Contains(webhookSender.callSend, "GoLand:2018.1 (181.4203.567)") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
+
+	if !strings.Contains(store.callExists, "argo/argo:0.7.2") {
+		t.Error("Unexpected calls to store.Exists:", store.callExists)
+	}
+	if !strings.Contains(store.callExists, "argo/argo:0.6.1") {
+		t.Error("Unexpected calls to store.Exists:", store.callExists)
+	}
+	if !strings.Contains(store.callMark, "argo/argo:0.7.2") {
+		t.Error("Unexpected calls to store.Mark:", store.callMark)
+	}
+	if !strings.Contains(store.callMark, "argo/argo:0.6.1") {
+		t.Error("Unexpected calls to store.Mark:", store.callMark)
+	}
+
+	if strings.Contains(notifier.callSend, "argo/argo:0.6.1") {
+		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
+	}
+	if !strings.Contains(notifier.callSend, "argo/argo:0.7.2") {
+		t.Error("Unexpected calls to notifier.SendNotification:", notifier.callSend)
+	}
+
+	if !strings.Contains(webhookSender.callSend, "argo/argo:0.6.1") {
+		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
+	}
+	if !strings.Contains(webhookSender.callSend, "argo/argo:0.7.2") {
 		t.Error("Unexpected calls to webhookSender.Send:", notifier.callSend)
 	}
 }
