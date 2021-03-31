@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "gluster-{{ .Values.basic.name }}-claim"
+  namespace: "{{ .Values.basic.namespace }}"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+      requests:
+        storage: "{{ .Values.basic.storage_size }}Gi"

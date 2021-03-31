@@ -1,0 +1,14 @@
+version: '3'
+services:
+  release-watcher:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    environment:
+      - CONFIGURATION_FILE=/data/releases.yml
+      - DATABASE_PATH=/data/releases.db
+      - SLACK_WEBHOOK_URL=https://some.slack.webhook.url
+    restart: always
+    volumes:
+      - /data:/data
+      - $PWD/release-watcher.yml:/data/releases.yml

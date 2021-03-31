@@ -1,4 +1,4 @@
-FROM golang:1.13 as builder
+FROM golang:1.16 as builder
 
 ARG CC=""
 ARG CC_PKG=""
@@ -13,15 +13,21 @@ RUN if [ -n "$CC_PKG" ]; then \
     && export GOOS=linux \
     && export GOARCH=$CC_GOARCH \
     && export CGO_ENABLED=1 \
-    && go build -o /var/tmp/app -v github.com/rycus86/release-watcher
+    && cd /go/src/github.com/rycus86/release-watcher \
+    && go build -mod vendor -o /var/tmp/app .
 
-FROM <target>
+FROM builder
 
-LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
+LABEL application="Release Watcher" \
+      description="Release Watcher - Backend service to send slack notifactions after a new release of a lib" \
+      version="0.0.2" \
+      maintainer="Viktor Adam <rycus86@gmail.com>" \
+      lastUpdatedBy="Pascal Zimmermann" \
+      lastUpdatedOn="2021-03-21"
 
-RUN    apt-get update \
-    && apt-get install -y ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /var/tmp/app /release-watcher
 
