@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "gluster-{{ .Values.basic.name }}-pv"
+  namespace: "{{ .Values.basic.namespace }}"
+spec:
+  capacity:
+    storage: "{{ .Values.basic.storage_size }}Gi"
+  accessModes:
+    - ReadWriteMany
+  glusterfs:
+    endpoints: gluster-cluster-sv
+    path: "/{{ .Values.basic.name }}"
+    readOnly: false
+  persistentVolumeReclaimPolicy: Retain

@@ -1,0 +1,15 @@
+basic:
+  name: release-watcher
+  namespace:
+  storage_size: 5
+
+docker:
+  image: release-watcher
+  tag: 0.0.2
+
+secret:
+  SLACK_WEBHOOK_URL:
+
+config:
+  CONFIGURATION_FILE: /data/releases.yml
+  DATABASE_PATH: /data/releases.db

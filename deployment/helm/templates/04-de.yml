@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.basic.name }}-de"
+  labels:
+    app.kubernetes.io/name: "{{ .Values.basic.name }}"
+  namespace: "{{ .Values.basic.namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "{{ .Values.basic.name }}"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "{{ .Values.basic.name }}"
+    spec:
+      containers:
+        - name: "{{ .Values.basic.name }}"
+          image: "{{ .Values.docker.image }}:{{ .Values.docker.tag }}"
+          env:
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.basic.name }}-sc"
+                  key: SLACK_WEBHOOK_URL
+            - name: CONFIGURATION_FILE
+              value: "{{ .Values.config.CONFIGURATION_FILE }}"
+            - name: DATABASE_PATH
+              value: "{{ .Values.config.DATABASE_PATH }}"
+          volumeMounts:
+            - mountPath: /data
+              name: storage
+              readOnly: false
+          imagePullPolicy: Always
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: "gluster-{{ .Values.basic.name }}-claim"
+      securityContext:
+        fsGroup: 500

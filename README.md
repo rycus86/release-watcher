@@ -30,7 +30,7 @@ $ docker run -d --name release-watcher 				\
 	rycus86/release-watcher
 ```
 
-Alternatively, build with Go (tested on version 1.10, 1.14), then execute:
+Alternatively, build with Go (tested on version 1.10, 1.14, 1.16), then execute:
 
 ```shell
 $ export DATABASE_PATH=$PWD/releases.db
