@@ -14,6 +14,7 @@ RUN if [ -n "$CC_PKG" ]; then \
     && export GOARCH=$CC_GOARCH \
     && export CGO_ENABLED=1 \
     && cd /go/src/github.com/rycus86/release-watcher \
+    && go mod vendor \
     && go build -mod vendor -o /var/tmp/app .
 
 FROM builder
