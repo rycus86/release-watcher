@@ -135,6 +135,17 @@ The Slack notification manager accepts some optional configuration parameters, e
 | `SLACK_ICON_URL` | The URL of the image to display on the notification | - |
 | `HTTP_TIMEOUT` | The HTTP timeout for API calls | `30s` |
 
+### Telegram notifications
+
+The Telegram notification manager accepts some optional configuration parameters, either from environment variables, or a key-value file at `/var/secrets/telegram` in `KEY=VALUE` format on each line.
+
+| Key | Description | Default |
+| --- | ----------- | ------- |
+| `NOTIFICATION_SERVICE` | Set to `telegram` to change notifications from Slack to Telegram, otherwise will use Slack __(required)__ | slack |
+| `TELEGRAM_BOT_TOKEN` | The telegram bot token __(required)__ | - |
+| `TELEGRAM_CHAT_ID` | The user id message to __(required)__ | - |
+| `HTTP_TIMEOUT` | The HTTP timeout for API calls | `30s` |
+
 ### General configuration
 
 There are some more, general configuration parameters, either from environment variables, or a key-value file at `/var/secrets/release-watcher` in `KEY=VALUE` format on each line.
