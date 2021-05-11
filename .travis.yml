@@ -27,7 +27,7 @@ jobs:
         - sed -i "s#FROM <target>#FROM $DOCKER_FROM#" Dockerfile
         # build
         - >
-          docker build -t es-cleaner:$DOCKER_TAG -f Dockerfile \
+          docker build -t release-watcher:$DOCKER_TAG -f Dockerfile \
             --build-arg CC=$CC \
             --build-arg CC_PKG=$CC_PKG \
             --build-arg CC_GOARCH=$CC_GOARCH \
@@ -35,9 +35,8 @@ jobs:
       after_success:
         - |
           echo ${DOCKER_PASSWORD} | docker login --username "rycus86" --password-stdin
-          docker login -u="rycus86" -p="$DOCKER_PASSWORD"
           if [ "$TRAVIS_BRANCH" == "master" ]; then
-              docker tag es-cleaner:$DOCKER_TAG rycus86/release-watcher:$DOCKER_TAG
+              docker tag release-watcher:$DOCKER_TAG rycus86/release-watcher:$DOCKER_TAG
               docker push rycus86/release-watcher:$DOCKER_TAG
           fi
       env:

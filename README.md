@@ -143,7 +143,7 @@ The Telegram notification manager accepts some optional configuration parameters
 | --- | ----------- | ------- |
 | `NOTIFICATION_SERVICE` | Set to `telegram` to change notifications from Slack to Telegram, otherwise will use Slack __(required)__ | slack |
 | `TELEGRAM_BOT_TOKEN` | The telegram bot token __(required)__ | - |
-| `TELEGRAM_CHAT_ID` | The user id message to __(required)__ | - |
+| `TELEGRAM_CHAT_ID` | The user ID message to __(required)__ | - |
 | `HTTP_TIMEOUT` | The HTTP timeout for API calls | `30s` |
 
 ### General configuration

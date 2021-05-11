@@ -38,8 +38,7 @@ type Chat struct {
 func (m *TelegramNotificationManager) initialize() {
 	m.Token = env.Lookup("TELEGRAM_BOT_TOKEN", "/var/secrets/telegram", "")
 	m.ChatID = env.Lookup("TELEGRAM_CHAT_ID", "/var/secrets/telegram", "")
-	//chatID := env.Lookup("TELEGRAM_CHAT_ID", "/var/secrets/telegram", "")
-	//m.chatID, err = strconv.Atoi(chatID)
+
 	m.httpClient = &http.Client{
 		Timeout:   env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/telegram"),
 		Transport: &transport.HttpTransportWithUserAgent{},
@@ -74,6 +73,7 @@ func (m *TelegramNotificationManager) SendNotification(release *model.Release) e
 		log.Printf("error when posting text to the chat: %s", err.Error())
 		return err
 	}
+
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
@@ -81,13 +81,11 @@ func (m *TelegramNotificationManager) SendNotification(release *model.Release) e
 		}
 	}(response.Body)
 
-	var bodyBytes, errRead = ioutil.ReadAll(response.Body)
+	var _, errRead = ioutil.ReadAll(response.Body)
 	if errRead != nil {
 		log.Printf("error in parsing telegram answer %s", errRead.Error())
 		return err
 	}
-	bodyString := string(bodyBytes)
-	log.Printf("Body of Telegram Response: %s", bodyString)
 
 	return nil
 }
