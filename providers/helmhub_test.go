@@ -46,7 +46,7 @@ func TestFetchHelmHubReleases(t *testing.T) {
 		t.Errorf("Unexpected date: %s", releases[0].Date.String())
 	}
 
-	if releases[0].URL != "https://hub.helm.sh/charts/argo/argo/0.7.2/" {
+	if releases[0].URL != "https://hub.helm.sh/charts/argo/argo/0.7.2" {
 		t.Error("Unexpected URL:", releases[0].URL)
 	}
 }

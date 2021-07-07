@@ -1,0 +1,545 @@
+{
+    "package_id": "036990fa-13a4-418a-b2c3-4bca0b12a4d2",
+    "name": "argo",
+    "normalized_name": "argo",
+    "is_operator": false,
+    "description": "A Helm chart for Argo Workflows",
+    "logo_image_id": "c0c24b6e-02c0-42ba-ae5e-616ea981628f",
+    "home_url": "https://github.com/argoproj/argo-helm",
+    "readme": "## Argo Workflows Chart\n\n> ⚠ DEPRECATION WARNING: this chart is for v2 of Argo Workflows. For v3, a new chart is available at <https://github.com/argoproj/argo-helm/tree/master/charts/argo-workflows>\n\nThis is a **community maintained** chart. It is used to set up argo and it's needed dependencies through one command. This is used in conjunction with [helm](https://github.com/kubernetes/helm).\n\nIf you want your deployment of this helm chart to most closely match the [argo CLI](https://github.com/argoproj/argo-workflows), you should deploy it in the `kube-system` namespace.\n\n## Pre-Requisites\nThis chart uses an install hook to configure the CRD definition.  Installation of CRDs is a somewhat privileged process in itself and in RBAC enabled clusters the `default` service account for namespaces does not typically have the ability to do create these.\n\nA few options are:\n- Setup the CRD yourself manually and use `--set installCRD=false` when installing the helm chart. Find the CRDs in the [argo codebase](https://github.com/argoproj/argo-workflows/tree/master/manifests/base/crds/full)\n- Manually create a ServiceAccount in the Namespace which your release will be deployed w/ appropriate bindings to perform this action and set the `init.serviceAccount` attribute\n- Augment the `default` ServiceAccount permissions in the Namespace in which your Release is deployed to have the appropriate permissions\n\n## Usage Notes:\nThis chart defaults to setting the `controller.instanceID.enabled` to `false` now, which means the deployed controller will act upon any workflow deployed to the cluster.  If you would like to limit the behavior and deploy multiple workflow controllers, please use the `controller.instanceID.enabled` attribute along with one of it's configuration options to set the `instanceID` of the workflow controller to be properly scoped for your needs.\n\n## Values\n\nThe `values.yaml` contains items used to tweak a deployment of this chart.\nFields to note:\n* `controller.instanceID.enabled`: If set to true, the Argo Controller will **ONLY** monitor Workflow submissions with a `--instanceid`  attribute\n* `controller.instanceID.useReleaseName`: If set to true then chart set controller instance id to release name\n* `controller.instanceID.explicitID`: Allows customization of an instance id for the workflow controller to monitor\n* `controller.workflowNamespaces`: This is a list of namespaces where workflows will be ran\n* `minio.install`: If this is true, we'll install [minio](https://github.com/kubernetes/charts/tree/master/stable/minio) and build out the artifactRepository section in workflow controller config map.\n* `artifactRepository.s3.accessKeySecret` and `artifactRepository.s3.secretKeySecret` These by default link to minio default credentials stored in the secret deployed by the minio chart.\n",
+    "security_report_summary": {
+        "low": 0,
+        "high": 2,
+        "medium": 2,
+        "unknown": 0,
+        "critical": 0
+    },
+    "security_report_created_at": 1625640304,
+    "data": {
+        "type": "",
+        "apiVersion": "v2",
+        "kubeVersion": ""
+    },
+    "version": "1.0.0",
+    "available_versions": [
+        {
+            "version": "0.16.8",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1619106649
+        },
+        {
+            "version": "0.16.9",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1619473142
+        },
+        {
+            "version": "0.16.6",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1615224267
+        },
+        {
+            "version": "0.16.7",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1617212280
+        },
+        {
+            "version": "0.14.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.8.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.16.10",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1621352338
+        },
+        {
+            "version": "1.0.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1621602259
+        },
+        {
+            "version": "0.6.5",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.10.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.7.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.5",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.16.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1614064796
+        },
+        {
+            "version": "0.12.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.16.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1614184623
+        },
+        {
+            "version": "0.8.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.6",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.7.5",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.15.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612918665
+        },
+        {
+            "version": "0.8.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.10",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.8.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.12.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.6.7",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.9",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.7.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.5",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.6.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.10.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.6.6",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.8.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.5.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.5.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.5.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.4.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.6.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.16.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1613539888
+        },
+        {
+            "version": "0.15.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.6.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.5.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.11.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.8.6",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.1.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.8",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.8.5",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.2.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.16.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1614188659
+        },
+        {
+            "version": "0.15.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.16.5",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1614193472
+        },
+        {
+            "version": "0.15.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.1.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.7",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.6.8",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.12.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.11",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.10.2",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.7",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.9.6",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.7.4",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.10",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.13.8",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.16.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1613500795
+        },
+        {
+            "version": "0.7.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.7.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.15.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.7.6",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.3.0",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.6.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.5.3",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        },
+        {
+            "version": "0.3.1",
+            "contains_security_updates": false,
+            "prerelease": false,
+            "ts": 1612385345
+        }
+    ],
+    "app_version": "v2.12.5",
+    "digest": "51f889dca3437fb4e0a27816f6a473a9358828dbf6f85564b7991fa1458055c2",
+    "deprecated": true,
+    "contains_security_updates": false,
+    "prerelease": false,
+    "signed": false,
+    "content_url": "https://argoproj.github.io/argo-helm/argo-1.0.0.tgz",
+    "containers_images": [
+        {
+            "name": "",
+            "image": "argoproj/argocli:v2.12.5",
+            "whitelisted": false
+        },
+        {
+            "name": "",
+            "image": "argoproj/workflow-controller:v2.12.5",
+            "whitelisted": false
+        }
+    ],
+    "all_containers_images_whitelisted": false,
+    "has_values_schema": false,
+    "has_changelog": false,
+    "ts": 1621602259,
+    "repository": {
+        "repository_id": "05f5fe20-d21b-4413-8327-715958b51bde",
+        "name": "argo",
+        "url": "https://argoproj.github.io/argo-helm",
+        "private": false,
+        "kind": 0,
+        "verified_publisher": false,
+        "official": false,
+        "scanner_disabled": false,
+        "organization_name": "helm",
+        "organization_display_name": "Helm"
+    },
+    "stats": {
+        "subscriptions": 6,
+        "webhooks": 0
+    }
+}

@@ -63,6 +63,11 @@ releases:
   helmhub:
     - repo: bitnami
       chart: airflow
+
+  artifacthub:
+    - owner: bitnami
+      chart: postgresql
+
 ```
 
 The root `releases` holds mappings, keyed by the provider name, and the value being a list of project configurations. The available providers and their related configuration is listed below.
@@ -113,9 +118,19 @@ This provider accepts some optional configuration parameters, either from enviro
 | --- | ----------- | ------- |
 | `HTTP_TIMEOUT` | The HTTP timeout for API calls | `30s` |
 
-### Helm Hub
+### Artifact Hub
 
-The `helmhub` provider looks for new Helm chart versions. The configuration items need to have a `repo` property and a `chart`.
+The `artifacthub` provider looks for new Helm chart versions. The configuration items need to have a `repo` property and a `chart`.
+
+This provider accepts some optional configuration parameters, either from environment variables, or a key-value file at `/var/secrets/artifacthub` in `KEY=VALUE` format on each line.
+
+| Key | Description | Default |
+| --- | ----------- | ------- |
+| `HTTP_TIMEOUT` | The HTTP timeout for API calls | `30s` |
+
+### Helm Hub (deprecated)
+
+The `helmhub` provider looks for new Helm chart versions. The configuration items need to have a `repo` property and a `chart`. This provider is replaced by `artifacthub`
 
 This provider accepts some optional configuration parameters, either from environment variables, or a key-value file at `/var/secrets/helmhub` in `KEY=VALUE` format on each line.
 

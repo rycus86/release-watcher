@@ -91,6 +91,10 @@ func TestWaitForChanges(t *testing.T) {
 		"https://hub.helm.sh/api/chartsvc/v1/charts/argo/argo/versions",
 		"./testdata/helmhub_releases.json",
 	)
+	registerResponderFromFile(
+		"https://artifacthub.io/api/v1/packages/helm/argo/argo",
+		"./testdata/artifacthub_releases.json",
+	)
 
 	configuration := model.Configuration{
 		Releases: map[string][]model.GenericProject{
@@ -108,6 +112,9 @@ func TestWaitForChanges(t *testing.T) {
 			},
 			"helmhub": {
 				&providers.HelmHubProject{Repo: "argo", Chart: "argo"},
+			},
+			"artifacthub": {
+				&providers.ArtifactHubProject{Repo: "argo", Chart: "argo"},
 			},
 		},
 	}

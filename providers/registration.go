@@ -32,4 +32,5 @@ func InitializeProviders() {
 	(&PyPIProvider{}).Initialize()
 	(&JetBrainsProvider{}).Initialize()
 	(&HelmHubProvider{}).Initialize()
+	(&ArtifactHubProvider{}).Initialize()
 }
