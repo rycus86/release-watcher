@@ -9,6 +9,7 @@ Currently supports fetching releases from:
 - [PyPI](https://pypi.org)
 - [JetBrains](https://www.jetbrains.com)
 - [Helm Hub](https://hub.helm.sh)
+- [Artifact Hub](https://artifacthub.io)
 
 Currently supports notifications to:
 
