@@ -8,8 +8,8 @@ Currently supports fetching releases from:
 - [Docker Hub](https://hub.docker.com)
 - [PyPI](https://pypi.org)
 - [JetBrains](https://www.jetbrains.com)
-- [Helm Hub](https://hub.helm.sh)
 - [Artifact Hub](https://artifacthub.io)
+- [Helm Hub](https://hub.helm.sh) (Deprecated)
 
 Currently supports notifications to:
 
@@ -66,9 +66,8 @@ releases:
       chart: airflow
 
   artifacthub:
-    - owner: bitnami
+    - repo: bitnami
       chart: postgresql
-
 ```
 
 The root `releases` holds mappings, keyed by the provider name, and the value being a list of project configurations. The available providers and their related configuration is listed below.
