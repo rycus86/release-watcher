@@ -40,7 +40,7 @@ func (p ArtifactHubProject) String() string {
 
 func (provider *ArtifactHubProvider) Initialize() {
 	provider.client = &http.Client{
-		Timeout:   env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/dockerhub"),
+		Timeout:   env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/artifacthub"),
 		Transport: &transport.HttpTransportWithUserAgent{},
 	}
 
