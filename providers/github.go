@@ -107,5 +107,41 @@ func (provider *GitHubProvider) FetchReleases(p model.GenericProject) ([]model.R
 		})
 	}
 
+	if len(releases) == 0 {
+		releases, err = provider.FetchTags(p)
+	}
+	return releases, nil
+}
+
+func (provider *GitHubProvider) FetchTags(p model.GenericProject) ([]model.Release, error) {
+	var releases []model.Release
+
+	project := p.(*GitHubProject)
+
+	ctx, cancel := context.WithTimeout(
+		context.Background(), env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
+	)
+	defer cancel()
+
+	ghTags, _, err := provider.client.Repositories.ListTags(ctx, project.Owner, project.Repo, &github.ListOptions{PerPage: 50})
+	if err != nil {
+		return nil, err
+	}
+
+	for _, tag := range ghTags {
+		name := tag.GetName()
+		if name == "" {
+			break
+		}
+		url := fmt.Sprintf("https://github.com/%v/%v/releases/tag/%v", project.Owner, project.Repo, name)
+		releases = append(releases, model.Release{
+			Name: name,
+			URL:  url,
+
+			Provider: provider,
+			Project:  project,
+		})
+	}
+
 	return releases, nil
 }
