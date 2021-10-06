@@ -21,8 +21,9 @@ type GitHubProvider struct {
 type GitHubProject struct {
 	model.BaseProject `mapstructure:",squash"`
 
-	Owner string
-	Repo  string
+	Owner   string
+	Repo    string
+	UseTags bool
 }
 
 func (p GitHubProject) String() string {
@@ -81,6 +82,10 @@ func (provider *GitHubProvider) FetchReleases(p model.GenericProject) ([]model.R
 
 	project := p.(*GitHubProject)
 
+	if project.UseTags {
+		return provider.FetchTags(p)
+	}
+
 	ctx, cancel := context.WithTimeout(
 		context.Background(), env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
 	)
@@ -107,9 +112,6 @@ func (provider *GitHubProvider) FetchReleases(p model.GenericProject) ([]model.R
 		})
 	}
 
-	if len(releases) == 0 {
-		releases, err = provider.FetchTags(p)
-	}
 	return releases, nil
 }
 
