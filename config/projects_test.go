@@ -21,7 +21,7 @@ func TestParseConfig(t *testing.T) {
 	// Releases
 	for provider, projects := range configuration.Releases {
 		if provider == "github" {
-			if len(projects) != 1 {
+			if len(projects) != 2 {
 				t.Error("Unexpected number of projects")
 			}
 
@@ -35,6 +35,10 @@ func TestParseConfig(t *testing.T) {
 
 			if wh := projects[0].GetWebhooks(); len(wh) != 1 || wh[0] != "http://example.local/webhooks/test" {
 				t.Error("Unexpected webhooks configuration:", wh)
+			}
+
+			if projects[1].String() != "nginx/nginx" {
+				t.Error("Unexpected project:", projects[0])
 			}
 
 		} else if provider == "dockerhub" {

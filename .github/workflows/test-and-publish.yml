@@ -1,0 +1,86 @@
+name: Test & publish package
+
+on: [push, pull_request]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.16'
+      - name: Run tests
+        run: go test ./... -v -cover -covermode=count
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - DOCKER_FROM: debian
+            DOCKER_TAG: amd64
+
+          - DOCKER_FROM: rycus86/armhf-debian-qemu
+            DOCKER_TAG: armhf
+            CC: arm-linux-gnueabihf-gcc
+            CC_PKG: gccgo-arm-linux-gnueabihf
+            CC_GOARCH: arm
+
+          - DOCKER_FROM: rycus86/arm64v8-debian-qemu
+            DOCKER_TAG: aarch64
+            CC: aarch64-linux-gnu-gcc
+            CC_PKG: gccgo-aarch64-linux-gnu
+            CC_GOARCH: arm64
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log into registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Get the current branch name
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+        id: vars
+
+      - name: Prepare multiarch build
+        run: |
+          docker run --rm --privileged multiarch/qemu-user-static:register --reset
+          set -x
+          sed -i "s#FROM <target>#FROM ${{ matrix.DOCKER_FROM }}#" Dockerfile
+          cat Dockerfile
+
+      - name: Build and push Docker image ${{ matrix.DOCKER_TAG }}
+        uses: docker/build-push-action@v2
+        with:
+          push: ${{ github.event_name != 'pull_request' && steps.vars.outputs.branch == 'master' }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/release-watcher:${{ matrix.DOCKER_TAG }}
+          context: .
+          build-args: |
+            CC=${{ matrix.CC }}
+            CC_PKG=${{ matrix.CC_PKG }}
+            CC_GOARCH=${{ matrix.CC_GOARCH }}
+
+  manifest:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log into registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Upload manifest
+        run: |
+          curl -fsSL https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64 > ./manifest-tool
+          chmod +x ./manifest-tool
+          ./manifest-tool push from-spec manifest.yml

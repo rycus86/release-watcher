@@ -14,10 +14,9 @@ RUN if [ -n "$CC_PKG" ]; then \
     && export GOARCH=$CC_GOARCH \
     && export CGO_ENABLED=1 \
     && cd /go/src/github.com/rycus86/release-watcher \
-    && go mod vendor \
     && go build -mod vendor -o /var/tmp/app .
 
-FROM builder
+FROM <target>
 
 LABEL application="Release Watcher" \
       description="Release Watcher - Backend service to send slack notifactions after a new release of a lib" \
