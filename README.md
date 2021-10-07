@@ -48,6 +48,9 @@ releases:
   github:
     - owner: docker
       repo: docker-py
+    - owner: nginx
+      repo: nginx
+      useTags: true
 
   dockerhub:
     - repo: nginx
@@ -76,7 +79,8 @@ Each project can also have a `filter` property, which is a regular expression fo
 
 ### GitHub
 
-The `github` provider looks for GitHub releases. The configuration items need to have an `owner` and `repo` property.
+The `github` provider looks for GitHub releases. The configuration items need to have an `owner` and `repo` property.  
+`github` also provides a parameter `useTags`, type `bool`, which specifies whether the repo gets its version information from releases or tags.
 
 This provider accepts some optional configuration parameters, either from environment variables, or a key-value file at `/var/secrets/github` in `KEY=VALUE` format on each line.
 

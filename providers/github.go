@@ -21,8 +21,9 @@ type GitHubProvider struct {
 type GitHubProject struct {
 	model.BaseProject `mapstructure:",squash"`
 
-	Owner string
-	Repo  string
+	Owner   string
+	Repo    string
+	UseTags bool
 }
 
 func (p GitHubProject) String() string {
@@ -81,6 +82,10 @@ func (provider *GitHubProvider) FetchReleases(p model.GenericProject) ([]model.R
 
 	project := p.(*GitHubProject)
 
+	if project.UseTags {
+		return provider.FetchTags(p)
+	}
+
 	ctx, cancel := context.WithTimeout(
 		context.Background(), env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
 	)
@@ -101,6 +106,39 @@ func (provider *GitHubProvider) FetchReleases(p model.GenericProject) ([]model.R
 			Name: name,
 			URL:  release.GetHTMLURL(),
 			Date: release.GetPublishedAt().Time,
+
+			Provider: provider,
+			Project:  project,
+		})
+	}
+
+	return releases, nil
+}
+
+func (provider *GitHubProvider) FetchTags(p model.GenericProject) ([]model.Release, error) {
+	var releases []model.Release
+
+	project := p.(*GitHubProject)
+
+	ctx, cancel := context.WithTimeout(
+		context.Background(), env.GetTimeout("HTTP_TIMEOUT", "/var/secrets/github"),
+	)
+	defer cancel()
+
+	ghTags, _, err := provider.client.Repositories.ListTags(ctx, project.Owner, project.Repo, &github.ListOptions{PerPage: 50})
+	if err != nil {
+		return nil, err
+	}
+
+	for _, tag := range ghTags {
+		name := tag.GetName()
+		if name == "" {
+			break
+		}
+		url := fmt.Sprintf("https://github.com/%v/%v/releases/tag/%v", project.Owner, project.Repo, name)
+		releases = append(releases, model.Release{
+			Name: name,
+			URL:  url,
 
 			Provider: provider,
 			Project:  project,

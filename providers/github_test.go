@@ -48,6 +48,43 @@ func TestFetchGitHubReleases(t *testing.T) {
 	}
 }
 
+func TestFetchGitHubTags(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	testdata, err := ioutil.ReadFile("../testdata/github_tags.json")
+	if err != nil {
+		t.Errorf("Failed to load test data: %s", err)
+	}
+
+	httpmock.RegisterResponder(
+		"GET", "https://api.github.com/repos/nginx/nginx/tags",
+		httpmock.NewStringResponder(200, string(testdata)),
+	)
+
+	provider := GitHubProvider{}
+	provider.Initialize()
+
+	releases, err := provider.FetchReleases(&GitHubProject{Owner: "nginx", Repo: "nginx", UseTags: true})
+	if err != nil {
+		t.Errorf("Failed to fetch releases: %s", err)
+	}
+
+	if len(releases) != 30 {
+		t.Error("Wrong number of results")
+	}
+
+	sample := releases[1]
+
+	if sample.Name != "release-1.21.2" {
+		t.Errorf("Unexpected name: %s", sample.Name)
+	}
+
+	if sample.URL != "https://github.com/nginx/nginx/releases/tag/release-1.21.2" {
+		t.Errorf("Unexpected URL: %s", sample.URL)
+	}
+}
+
 func TestFetchGitHubReleasesWithTagName(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
