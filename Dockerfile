@@ -1,4 +1,4 @@
-FROM golang:1.16 as builder
+FROM golang:1.23 as builder
 
 ARG CC=""
 ARG CC_PKG=""
