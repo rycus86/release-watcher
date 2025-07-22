@@ -1,6 +1,6 @@
 module github.com/rycus86/release-watcher
 
-go 1.23.0
+go 1.23
 
 require (
 	github.com/google/go-github v17.0.0+incompatible
